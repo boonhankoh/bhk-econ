@@ -1,35 +1,6 @@
 from os import environ
 
-# Turn off debug mode: heroku config:set OTREE_PRODUCTION=1
-
-SESSION_CONFIGS = [
-    # dict(
-    #     name='effort_luck_SM',
-    #     display_name='Effort/Luck Experiment (Strategy Method)',
-    #     num_demo_participants=12,
-    #     app_sequence=['el_admin', 'el_investment_ctrl', 'el_investment_task', 'el_dictator_task', 'el_questionnaire', 'el_exp_outcome', 'el_end'],
-    #     show_up=5,
-    #     dollar_convert=20,
-    #     treatstrategy=1,
-    #     startingparam=2,
-    #     task1link='https://docs.google.com/document/d/1c3xHILlgh0Bf2PxGvyw4mCsXp2HnvK06QBLS-gQFULU/edit?usp=sharing',
-    #     task1summarylink='https://docs.google.com/document/d/1c3xHILlgh0Bf2PxGvyw4mCsXp2HnvK06QBLS-gQFULU/edit#bookmark=id.6wkihougyf1g',
-    #     task2link='https://docs.google.com/document/d/1Vbe6ETKjGrCMZ58w7zsg-t9xhxMeQWu9VuxvTeztpXc/edit?usp=sharing',
-    # ),
-    # dict(
-    #     name='effort_luck_NSM',
-    #     display_name='Effort/Luck Experiment (Non-Strategy Method)',
-    #     num_demo_participants=12,
-    #     app_sequence=['el_admin', 'el_investment_ctrl', 'el_investment_task', 'el_dictator_task', 'el_questionnaire', 'el_exp_outcome', 'el_end'],
-    #     show_up=5,
-    #     dollar_convert=20,
-    #     treatstrategy=0,
-    #     startingparam=2,
-    #     task1link='https://docs.google.com/document/d/1b2QtYacavB3X25fpSJuMTwkZQzXvmLESxFqk3c5lEVQ/edit?usp=sharing',
-    #     task1summarylink='https://docs.google.com/document/d/1b2QtYacavB3X25fpSJuMTwkZQzXvmLESxFqk3c5lEVQ/edit#bookmark=id.p5z5186maqid',
-    #     task2link='https://docs.google.com/document/d/1Vbe6ETKjGrCMZ58w7zsg-t9xhxMeQWu9VuxvTeztpXc/edit?usp=sharing',
-    # ),
-]
+SESSION_CONFIGS = []
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
 # in SESSION_CONFIGS, except those that explicitly override it.
@@ -48,28 +19,7 @@ LANGUAGE_CODE = 'en'
 REAL_WORLD_CURRENCY_CODE = 'AUD'
 USE_POINTS = False
 
-ROOMS = [
-    # dict(
-    #     name='el_1',
-    #     display_name='Experiments in Group Decision Making 1',
-    #     participant_label_file='_rooms/EMU.txt',
-    # ),
-    # dict(
-    #     name='el_2',
-    #     display_name='Experiments in Group Decision Making 2',
-    #     participant_label_file='_rooms/EMU.txt',
-    # ),
-    # dict(
-    #     name='el_3',
-    #     display_name='Experiments in Group Decision Making 3',
-    #     participant_label_file='_rooms/EMU.txt',
-    # ),
-    # dict(
-    #     name='el_4',
-    #     display_name='Experiments in Group Decision Making 4',
-    #     participant_label_file='_rooms/EMU.txt',
-    # ),
-]
+ROOMS = []
 
 DEMO_PAGE_INTRO_HTML = """ """
 
