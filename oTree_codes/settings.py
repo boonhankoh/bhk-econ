@@ -1,6 +1,5 @@
 from os import environ
 
-# Read README.txt for deployment instructions
 # Turn off debug mode: heroku config:set OTREE_PRODUCTION=1
 
 SESSION_CONFIGS = [
