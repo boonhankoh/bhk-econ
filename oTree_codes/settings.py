@@ -71,13 +71,7 @@ ROOMS = [
     # ),
 ]
 
-ADMIN_USERNAME = 'admin'
-# for security, best to set admin password in an environment variable
-ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
-
 DEMO_PAGE_INTRO_HTML = """ """
-
-SECRET_KEY = 'v#iv0n_ii_eq$bn()$+gizi=jhn4-m!1x_8qe)13d)d977rgap'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = [
