@@ -1,0 +1,213 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  Table3
+       log:  C:\Users\BoonHan\Dropbox\University\Research\Projects\Beliefs-Effort_Luck\STATA\Paper-Final\Logs/Table3.log
+  log type:  text
+ opened on:   5 Jul 2021, 17:00:14
+
+. use "Data/Exp1-cleaned-long.dta", clear
+
+. xtset ID
+       panel variable:  ID (balanced)
+
+. 
+. reg BeliefUnconditional i.LA i.HA i.GA RGInvestPerc i.LGGame i.OrderRAGA i.OrderLAHA, vce(cluster ID)
+
+Linear regression                               Number of obs     =      1,632
+                                                F(7, 271)         =      39.89
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1372
+                                                Root MSE          =     25.734
+
+                                   (Std. Err. adjusted for 272 clusters in ID)
+------------------------------------------------------------------------------
+             |               Robust
+BeliefUnco~l |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        1.LA |  -13.26838   1.416916    -9.36   0.000    -16.05795   -10.47882
+        1.HA |   9.981618   1.310677     7.62   0.000     7.401215    12.56202
+        1.GA |   2.716912   1.354572     2.01   0.046     .0500887    5.383735
+RGInvestPerc |  -.1044794   .0429717    -2.43   0.016    -.1890802   -.0198786
+    1.LGGame |  -2.952206   1.040941    -2.84   0.005    -5.001564   -.9028476
+ 1.OrderRAGA |  -1.485903   2.457755    -0.60   0.546    -6.324623    3.352816
+ 1.OrderLAHA |   -3.59585   2.453099    -1.47   0.144    -8.425404    1.233703
+       _cons |   59.18193   3.915609    15.11   0.000     51.47305    66.89081
+------------------------------------------------------------------------------
+
+. lincom 1.HA-1.GA
+
+ ( 1)  1.HA - 1.GA = 0
+
+------------------------------------------------------------------------------
+BeliefUnco~l |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   7.264706   1.296252     5.60   0.000     4.712702     9.81671
+------------------------------------------------------------------------------
+
+. local est1 = r(estimate)
+
+. local tstat1 = r(estimate)/r(se)
+
+. local pval1 = tprob(r(df), abs(`tstat1'))
+
+. outreg2 using "Tables/Table3", label alpha(0.01, 0.05, 0.10) ctitle("Dependent variable: Interim belief") ///
+>         adds(Test of GA=HA,`est1',t-statistic,`tstat1',p-value,`pval1') ///
+>         bdec(3) sdec(3) replace tex excel addtext("Order effects","Y","Individual FE","N")
+Tables/Table3.tex
+Tables/Table3.xml
+dir : seeout
+
+. xtreg BeliefUnconditional i.LA i.HA i.GA i.LGGame, fe vce(cluster ID)
+
+Fixed-effects (within) regression               Number of obs     =      1,632
+Group variable: ID                              Number of groups  =        272
+
+R-sq:                                           Obs per group:
+     within  = 0.2509                                         min =          6
+     between =      .                                         avg =        6.0
+     overall = 0.1213                                         max =          6
+
+                                                F(4,271)          =      65.13
+corr(u_i, Xb)  = -0.0000                        Prob > F          =     0.0000
+
+                                   (Std. Err. adjusted for 272 clusters in ID)
+------------------------------------------------------------------------------
+             |               Robust
+BeliefUnco~l |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        1.LA |  -13.26838   1.415609    -9.37   0.000    -16.05537   -10.48139
+        1.HA |   9.981618   1.309468     7.62   0.000     7.403595    12.55964
+        1.GA |   2.716912   1.353323     2.01   0.046     .0525485    5.381275
+    1.LGGame |  -2.952206    1.03998    -2.84   0.005    -4.999674   -.9047378
+       _cons |   48.88971   1.236975    39.52   0.000      46.4544    51.32501
+-------------+----------------------------------------------------------------
+     sigma_u |  19.897147
+     sigma_e |  18.248505
+         rho |  .54313909   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. lincom 1.HA-1.GA
+
+ ( 1)  1.HA - 1.GA = 0
+
+------------------------------------------------------------------------------
+BeliefUnco~l |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   7.264706   1.295056     5.61   0.000     4.715055    9.814356
+------------------------------------------------------------------------------
+
+. local est1 = r(estimate)
+
+. local tstat1 = r(estimate)/r(se)
+
+. local pval1 = tprob(r(df), abs(`tstat1'))
+
+. outreg2 using "Tables/Table3", label alpha(0.01, 0.05, 0.10) ctitle("Dependent variable: Interim belief") ///
+>         adds(Test of GA=HA,`est1',t-statistic,`tstat1',p-value,`pval1') ///
+>         bdec(3) sdec(3) append tex excel addtext("Order effects","N","Individual FE","Y")
+Tables/Table3.tex
+Tables/Table3.xml
+dir : seeout
+
+. 
+. reg BeliefUnconditional i.LA i.HA i.GA i.LGHighEff RGInvestPerc i.LGGame i.OrderRAGA i.OrderLAHA, vce(cluster ID)
+
+Linear regression                               Number of obs     =      1,632
+                                                F(8, 271)         =      68.24
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.2856
+                                                Root MSE          =     23.424
+
+                                   (Std. Err. adjusted for 272 clusters in ID)
+------------------------------------------------------------------------------
+             |               Robust
+BeliefUnco~l |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        1.LA |  -12.23684   1.403315    -8.72   0.000    -14.99963   -9.474058
+        1.HA |    8.95008   1.262669     7.09   0.000     6.464193    11.43597
+        1.GA |   1.857297   1.273003     1.46   0.146    -.6489357    4.363529
+ 1.LGHighEff |   23.38153   1.848266    12.65   0.000     19.74274    27.02032
+RGInvestPerc |  -.0725792   .0362979    -2.00   0.047    -.1440409   -.0011174
+    1.LGGame |  -1.404899   .9551537    -1.47   0.142    -3.285364    .4755662
+ 1.OrderRAGA |  -.3814293   2.125658    -0.18   0.858    -4.566332    3.803473
+ 1.OrderLAHA |  -3.072305   2.121531    -1.45   0.149    -7.249082    1.104471
+       _cons |   48.11675   3.534292    13.61   0.000     41.15859    55.07491
+------------------------------------------------------------------------------
+
+. lincom 1.HA-1.GA
+
+ ( 1)  1.HA - 1.GA = 0
+
+------------------------------------------------------------------------------
+BeliefUnco~l |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   7.092783   1.236134     5.74   0.000     4.659137    9.526429
+------------------------------------------------------------------------------
+
+. local est1 = r(estimate)
+
+. local tstat1 = r(estimate)/r(se)
+
+. local pval1 = tprob(r(df), abs(`tstat1'))
+
+. outreg2 using "Tables/Table3", label alpha(0.01, 0.05, 0.10) ctitle("Dependent variable: Interim belief") ///
+>         adds(Test of GA=HA,`est1',t-statistic,`tstat1',p-value,`pval1') ///
+>         bdec(3) sdec(3) append tex excel addtext("Order effects","Y","Individual FE","N")
+Tables/Table3.tex
+Tables/Table3.xml
+dir : seeout
+
+. xtreg BeliefUnconditional i.LA i.HA i.GA i.LGHighEff i.LGGame, fe vce(cluster ID)
+
+Fixed-effects (within) regression               Number of obs     =      1,632
+Group variable: ID                              Number of groups  =        272
+
+R-sq:                                           Obs per group:
+     within  = 0.3054                                         min =          6
+     between = 0.2974                                         avg =        6.0
+     overall = 0.2592                                         max =          6
+
+                                                F(5,271)          =      79.71
+corr(u_i, Xb)  = 0.1396                         Prob > F          =     0.0000
+
+                                   (Std. Err. adjusted for 272 clusters in ID)
+------------------------------------------------------------------------------
+             |               Robust
+BeliefUnco~l |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        1.LA |  -12.64591   1.371647    -9.22   0.000    -15.34634   -9.945467
+        1.HA |   9.359141   1.245812     7.51   0.000      6.90644    11.81184
+        1.GA |   2.198181   1.270607     1.73   0.085    -.3033344    4.699696
+ 1.LGHighEff |   14.10948   1.588166     8.88   0.000     10.98277    17.23619
+    1.LGGame |   -2.01849    .963564    -2.09   0.037    -3.915513   -.1214675
+       _cons |   44.06551   1.243283    35.44   0.000     41.61779    46.51323
+-------------+----------------------------------------------------------------
+     sigma_u |  17.793353
+     sigma_e |  17.578331
+         rho |  .50607869   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. lincom 1.HA-1.GA
+
+ ( 1)  1.HA - 1.GA = 0
+
+------------------------------------------------------------------------------
+BeliefUnco~l |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |    7.16096   1.221954     5.86   0.000      4.75523    9.566689
+------------------------------------------------------------------------------
+
+. local est1 = r(estimate)
+
+. local tstat1 = r(estimate)/r(se)
+
+. local pval1 = tprob(r(df), abs(`tstat1'))
+
+. outreg2 using "Tables/Table3", label alpha(0.01, 0.05, 0.10) ctitle("Dependent variable: Interim belief") ///
+>         adds(Test of GA=HA,`est1',t-statistic,`tstat1',p-value,`pval1') ///
+>         bdec(3) sdec(3) append tex excel addtext("Order effects","N","Individual FE","Y")
+Tables/Table3.tex
+Tables/Table3.xml
+dir : seeout
+
+. 
+. capture log close _all

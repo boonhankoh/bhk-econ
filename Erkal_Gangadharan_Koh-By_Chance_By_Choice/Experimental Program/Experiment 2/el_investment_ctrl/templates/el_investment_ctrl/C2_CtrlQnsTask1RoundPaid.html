@@ -1,0 +1,40 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block head_title %}
+Task 1
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+{% block styles %}
+<style>
+  .otree-form-errors {
+    visibility: hidden;
+    display: none;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="card-header bg-transparent mainheader" >
+    <h4>
+        <center>
+            Task 1 Practice Questions
+        </center>
+    </h4>
+    <center>(Instructions are available <a href="{{ session.config.task1link }}" target="_blank">here</a>)</center>
+</div>
+<br>
+
+Task 1 has three rounds. If Task 1 is chosen for payment, then I will be paid for the decisions in one of the three rounds.
+<br><br>
+{% formfields %}
+
+<div align="center">
+    <button class="btn-primary btn next">CHECK ANSWER</button>
+</div>
+
+{% endblock %}

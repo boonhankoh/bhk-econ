@@ -1,0 +1,32 @@
+\documentclass[]{article}
+\setlength{\pdfpagewidth}{8.5in} \setlength{\pdfpageheight}{11in}
+\begin{document}
+\begin{tabular}{lccc} \hline
+ & (1) & (2) & (3) \\
+ & Dependent variable: Logit(posterior) & Dependent variable: Logit(posterior) & Dependent variable: Logit(posterior) \\
+VARIABLES & Treatment S & Treatment D & S + D \\ \hline
+ &  &  &  \\
+Logit(prior) & 0.525 & 0.546 & 0.535 \\
+ & (0.063) & (0.064) & (0.045) \\
+Logit(probability of good outcome) & 0.803 & 0.845 & 0.827 \\
+ & (0.146) & (0.139) & (0.100) \\
+Logit(probability of bad outcome) & 0.990 & 1.107 & 1.052 \\
+ & (0.145) & (0.122) & (0.094) \\
+ &  &  &  \\
+Observations & 888 & 1,014 & 1,902 \\
+R-squared & 0.399 & 0.400 & 0.399 \\
+delta & -0.475 & -0.454 & -0.465 \\
+t-stat\_delta & -7.507 & -7.112 & -10.37 \\
+p-val\_delta & 0 & 0 & 0 \\
+gammaG & -0.197 & -0.155 & -0.173 \\
+t-stat\_gammaG & -1.343 & -1.117 & -1.725 \\
+p-val\_gammaG & 0.181 & 0.266 & 0.0855 \\
+gammaB & -0.00979 & 0.107 & 0.0515 \\
+t-stat\_gammaB & -0.0676 & 0.876 & 0.550 \\
+p-val\_gammaB & 0.946 & 0.382 & 0.583 \\
+gammaG=gammaB & -0.187 & -0.262 & -0.225 \\
+t-stat\_gammaG=gammaB & -0.889 & -1.339 & -1.573 \\
+ p-val\_gammaG=gammaB & 0.375 & 0.182 & 0.117 \\ \hline
+\multicolumn{4}{c}{ Robust standard errors in parentheses} \\
+\end{tabular}
+\end{document}

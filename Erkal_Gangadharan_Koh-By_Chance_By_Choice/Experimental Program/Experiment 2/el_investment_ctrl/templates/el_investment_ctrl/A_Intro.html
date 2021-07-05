@@ -1,0 +1,46 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block head_title %}
+Task 1
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+  $('#proceed').delay(60000).show(0);
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="card-header bg-transparent mainheader" >
+    <h4>
+        <center>
+            Task 1
+        </center>
+    </h4>
+</div>
+<br>
+
+<p align="center">
+    We are now ready to begin Task 1.
+    <br>
+    <br>
+    Please click <b><a href="{{ session.config.task1link }}" target="_blank">this link</a></b> to read the instructions.
+    <br>
+    <br>
+    <br>
+</p>
+
+<div align="center" id="proceed" style="display: none;">
+    Press the button below once you have <b>finished reading the instructions</b>.
+    <br>
+    <br>
+    <button class="btn-primary btn next">I HAVE FINISHED READING THE INSTRUCTIONS</button>
+</div>
+
+{% endblock %}

@@ -1,0 +1,386 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  InTextStats
+       log:  C:\Users\BoonHan\Dropbox\University\Research\Projects\Beliefs-Effort_Luck\STATA\Paper-Final\Logs/InTextStats.log
+  log type:  text
+ opened on:   5 Jul 2021, 17:00:08
+
+. 
+. // Section 2.1.2: Average earnings in experiment
+. use "Data/Exp1-cleaned.dta", clear
+
+. sum FinalEarnings
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+FinalEarni~s |        272    34.07316    12.50084         10         76
+
+. 
+. // Section 2.3.1: Spearman's rank correlation coefficients of DG behavior and effort choice
+. use "Data/Exp1-cleaned-long.dta", clear
+
+. foreach x of varlist RA LA HA GA {
+  2. spearman DGGivePerc LGHighEff if `x'==1, pw stats(rho p)
+  3. }
+
+ Number of obs =     272
+Spearman's rho =       0.2330
+
+Test of Ho: DGGivePerc and LGHighEff are independent
+    Prob > |t| =       0.0001
+
+ Number of obs =     544
+Spearman's rho =       0.2624
+
+Test of Ho: DGGivePerc and LGHighEff are independent
+    Prob > |t| =       0.0000
+
+ Number of obs =     544
+Spearman's rho =       0.0961
+
+Test of Ho: DGGivePerc and LGHighEff are independent
+    Prob > |t| =       0.0249
+
+ Number of obs =     272
+Spearman's rho =       0.1829
+
+Test of Ho: DGGivePerc and LGHighEff are independent
+    Prob > |t| =       0.0025
+
+. 
+. // Section 2.3.2: Mean interim beliefs by treatment
+. use "Data/Exp1-cleaned-long.dta", clear
+
+. foreach x of varlist RA LA HA GA {
+  2. summarize BeliefUnconditional if `x'==1
+  3. }
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+BeliefUnco~l |        272     45.9375    25.92353          0        100
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+BeliefUnco~l |        544    34.14522    26.56101          0        100
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+BeliefUnco~l |        544    57.39522    25.74868          0        100
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+BeliefUnco~l |        272    48.65441    25.22603          0        100
+
+. 
+. // Section 2.3.2: Pairwise treatment comparisons of mean interim beliefs
+. * Kolmogorov-Smirnoff tests
+. use "Data/Exp1-cleaned-long.dta", clear
+
+. ksmirnov BeliefUnconditional if RA==1 | LA==1, by(RA) exact // RA vs. LA
+
+Two-sample Kolmogorov-Smirnov test for equality of distribution functions
+
+ Smaller group       D       P-value      Exact
+ ----------------------------------------------
+ 0:                  0.2188    0.000
+ 1:                  0.0000    1.000
+ Combined K-S:       0.2188    0.000      0.000
+
+Note: Ties exist in combined dataset;
+      there are 47 unique values out of 816 observations.
+
+. ksmirnov BeliefUnconditional if RA==1 | HA==1, by(RA) exact // RA vs. HA
+
+Two-sample Kolmogorov-Smirnov test for equality of distribution functions
+
+ Smaller group       D       P-value      Exact
+ ----------------------------------------------
+ 0:                  0.0074    0.981
+ 1:                 -0.2169    0.000
+ Combined K-S:       0.2169    0.000      0.000
+
+Note: Ties exist in combined dataset;
+      there are 49 unique values out of 816 observations.
+
+. ksmirnov BeliefUnconditional if HA==1 | GA==1, by(GA) exact // GA vs. HA
+
+Two-sample Kolmogorov-Smirnov test for equality of distribution functions
+
+ Smaller group       D       P-value      Exact
+ ----------------------------------------------
+ 0:                  0.0000    1.000
+ 1:                 -0.1875    0.000
+ Combined K-S:       0.1875    0.000      0.000
+
+Note: Ties exist in combined dataset;
+      there are 49 unique values out of 816 observations.
+
+. ksmirnov BeliefUnconditional if RA==1 | GA==1, by(RA) exact // RA vs. GA
+
+Two-sample Kolmogorov-Smirnov test for equality of distribution functions
+
+ Smaller group       D       P-value      Exact
+ ----------------------------------------------
+ 0:                  0.0110    0.967
+ 1:                 -0.0625    0.346
+ Combined K-S:       0.0625    0.663      0.664
+
+Note: Ties exist in combined dataset;
+      there are 42 unique values out of 544 observations.
+
+. * Signed-rank tests
+. use "Data/Exp1-cleaned.dta", clear
+
+. preserve
+
+. rename BeliefUnconditional1 BeliefUnconditionalLA1
+
+. rename BeliefUnconditional3 BeliefUnconditionalLA2
+
+. rename BeliefUnconditional2 BeliefUnconditionalHA1
+
+. rename BeliefUnconditional4 BeliefUnconditionalHA2
+
+. reshape  long BeliefUnconditionalLA BeliefUnconditionalHA , i(ID) j(Game)
+(note: j = 1 2)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                      272   ->     544
+Number of variables                 146   ->     145
+j variable (2 values)                     ->   Game
+xij variables:
+BeliefUnconditionalLA1 BeliefUnconditionalLA2->BeliefUnconditionalLA
+BeliefUnconditionalHA1 BeliefUnconditionalHA2->BeliefUnconditionalHA
+-----------------------------------------------------------------------------
+
+. signrank BeliefUnconditional5=BeliefUnconditionalLA // RA vs. LA
+
+Wilcoxon signed-rank test
+
+        sign |      obs   sum ranks    expected
+-------------+---------------------------------
+    positive |      332    109798.5       71442
+    negative |      109     33085.5       71442
+        zero |      103        5356        5356
+-------------+---------------------------------
+         all |      544      148240      148240
+
+unadjusted variance    13452780
+adjustment for ties  -24229.625
+adjustment for zeros     -92391
+                     ----------
+adjusted variance      13336159
+
+Ho: BeliefUnconditional5 = BeliefUnconditionalLA
+             z =  10.503
+    Prob > |z| =   0.0000
+
+Note: Exact p-value is not computed by default for sample sizes > 200.
+      Use option exact to compute it.
+
+. signrank BeliefUnconditional5=BeliefUnconditionalHA // RA vs. HA
+
+Wilcoxon signed-rank test
+
+        sign |      obs   sum ranks    expected
+-------------+---------------------------------
+    positive |      107       30113       72335
+    negative |      353      114557       72335
+        zero |       84        3570        3570
+-------------+---------------------------------
+         all |      544      148240      148240
+
+unadjusted variance    13452780
+adjustment for ties  -27768.625
+adjustment for zeros   -50277.5
+                     ----------
+adjusted variance      13374734
+
+Ho: BeliefUnconditional5 = BeliefUnconditionalHA
+             z = -11.545
+    Prob > |z| =   0.0000
+
+Note: Exact p-value is not computed by default for sample sizes > 200.
+      Use option exact to compute it.
+
+. signrank BeliefUnconditional6=BeliefUnconditionalHA // GA vs. HA
+
+Wilcoxon signed-rank test
+
+        sign |      obs   sum ranks    expected
+-------------+---------------------------------
+    positive |      117     35605.5     70368.5
+    negative |      305    105131.5     70368.5
+        zero |      122        7503        7503
+-------------+---------------------------------
+         all |      544      148240      148240
+
+unadjusted variance    13452780
+adjustment for ties  -24659.125
+adjustment for zeros -153186.25
+                     ----------
+adjusted variance      13274935
+
+Ho: BeliefUnconditional6 = BeliefUnconditionalHA
+             z =  -9.541
+    Prob > |z| =   0.0000
+
+Note: Exact p-value is not computed by default for sample sizes > 200.
+      Use option exact to compute it.
+
+. signrank BeliefUnconditional5=BeliefUnconditional6 if Game==1 // RA vs. GA
+
+Wilcoxon signed-rank test
+
+        sign |      obs   sum ranks    expected
+-------------+---------------------------------
+    positive |       79       13706       17250
+    negative |      121       20794       17250
+        zero |       72        2628        2628
+-------------+---------------------------------
+         all |      272       37128       37128
+
+unadjusted variance  1686230.00
+adjustment for ties    -4097.88
+adjustment for zeros  -31755.00
+                     ----------
+adjusted variance    1650377.13
+
+Ho: BeliefUnconditional5 = BeliefUnconditional6 
+             z =  -2.759
+    Prob > |z| =   0.0058
+
+Note: Exact p-value is not computed by default for sample sizes > 200.
+      Use option exact to compute it.
+
+. restore
+
+. 
+. // Section 2.3.3: Proportion of inconsistent updaters and non-updaters
+. use "Data/Exp1-cleaned.dta", clear
+
+. tab b_Group1 // inconsistent
+
+  LG: =1 if |
+inconsisten |
+  t updater |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |        228       83.82       83.82
+          1 |         44       16.18      100.00
+------------+-----------------------------------
+      Total |        272      100.00
+
+. tab b_Group2 // non-updater
+
+  LG: =1 if |
+non-updater |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |        249       91.54       91.54
+          1 |         23        8.46      100.00
+------------+-----------------------------------
+      Total |        272      100.00
+
+. tab b_Group3 // remaining sample
+
+  LG: =1 if |
+    neither |
+inconsisten |
+      t nor |
+non-updater |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |         67       24.63       24.63
+          1 |        205       75.37      100.00
+------------+-----------------------------------
+      Total |        272      100.00
+
+. 
+. // Section 2.3.3: Footnote 30
+. use "Data/Exp1-cleaned-long-state.dta", clear
+
+. keep if b_Group3==1
+(804 observations deleted)
+
+. reg LogitPosterior i.StateSuccess#c.LogitUnconditional LogitStateGood LogitStateBad, nocon vce(cluster ID)
+
+Linear regression                               Number of obs     =      2,460
+                                                F(4, 204)         =     273.98
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.6080
+                                                Root MSE          =     1.7304
+
+                                                        (Std. Err. adjusted for 205 clusters in ID)
+---------------------------------------------------------------------------------------------------
+                                  |               Robust
+                   LogitPosterior |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+----------------------------------+----------------------------------------------------------------
+StateSuccess#c.LogitUnconditional |
+                               0  |   .6806789   .0505363    13.47   0.000     .5810384    .7803194
+                               1  |   .7086064   .0547891    12.93   0.000     .6005809    .8166319
+                                  |
+                   LogitStateGood |   .7558135   .0496216    15.23   0.000     .6579766    .8536505
+                    LogitStateBad |   .9710207   .0692379    14.02   0.000      .834507    1.107534
+---------------------------------------------------------------------------------------------------
+
+. 
+. lincom 0.StateSuccess#LogitUnconditional-1
+
+ ( 1)  0b.StateSuccess#c.LogitUnconditional = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.3193211   .0505363    -6.32   0.000    -.4189616   -.2196806
+------------------------------------------------------------------------------
+
+. lincom 1.StateSuccess#LogitUnconditional-1
+
+ ( 1)  1.StateSuccess#c.LogitUnconditional = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2913936   .0547891    -5.32   0.000    -.3994191   -.1833681
+------------------------------------------------------------------------------
+
+. lincom LogitStateGood-1
+
+ ( 1)  LogitStateGood = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2441865   .0496216    -4.92   0.000    -.3420234   -.1463495
+------------------------------------------------------------------------------
+
+. lincom LogitStateBad-1
+
+ ( 1)  LogitStateBad = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0289793   .0692379    -0.42   0.676     -.165493    .1075344
+------------------------------------------------------------------------------
+
+. lincom LogitStateGood-LogitStateBad
+
+ ( 1)  LogitStateGood - LogitStateBad = 0
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2152071   .0674752    -3.19   0.002    -.3482453    -.082169
+------------------------------------------------------------------------------
+
+. lincom 1.StateSuccess#LogitUnconditional-0.StateSuccess#LogitUnconditional
+
+ ( 1)  - 0b.StateSuccess#c.LogitUnconditional + 1.StateSuccess#c.LogitUnconditional = 0
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0279276    .070374     0.40   0.692    -.1108261    .1666812
+------------------------------------------------------------------------------
+
+. 
+. capture log close _all

@@ -1,0 +1,114 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block head_title %}
+Outcome
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+<div class="card-header bg-transparent mainheader" >
+    <h4>
+        <center>
+            Outcome of Experiment
+        </center>
+    </h4>
+</div>
+<br>
+
+<div align="center">
+    <b>The computer has randomly determined that you will be paid for your decisions in Task {{ taskpaid }}.</b>
+    <br>
+    <br>
+    <br>
+</div>
+
+<!--Task 1-->
+{% if taskpaid == 1 %}
+<p align="left">
+    <b>Round {{ task1roundpaid }} has been selected for payment.</b>
+    <br>
+    <br>
+    {% if leader %}
+    You were the leader of your group.
+    <br>
+    <br>
+    Hence, you will be paid for your investment decision in Stage 1.
+    <br>
+    <br>
+    You received an endowment of {{ investendowment }} ECU and chose Investment {% if leaderhigheffort %}X{% else %}Y{% endif %}, which costs you {% if leaderhigheffort %}{{ costefforthigh }}{% else %}{{ costeffortlow }}{% endif %} ECU.
+    <br>
+    <br>
+    The investment you chose has {% if groupinvestsuccess %}succeeded{% else %}failed{% endif %}. Hence, the investment has provided you with a return of {% if groupinvestsuccess %}{{ groupreturnsuccess }}{% else %}{{ groupreturnfailure }}{% endif %} ECU.
+    {% elif member and paidinvest %}
+    Another participant was the leader of your group.
+    <br>
+    <br>
+    The computer has randomly determined that you will be paid for your leader's investment decision in Stage 1.
+    <br>
+    <br>
+    The investment your leader chose has {% if groupinvestsuccess %}succeeded{% else %}failed{% endif %}. Hence, the investment has provided you with a return of {% if groupinvestsuccess %}{{ groupreturnsuccess }}{% else %}{{ groupreturnfailure }}{% endif %} ECU.
+    {% elif member and not paidinvest %}
+    Another participant was the leader of your group.
+    <br>
+    <br>
+    The computer has randomly determined that you will be paid for your predictions of your leader's investment decision in Stage 2.
+    <br>
+    <br>
+    Of the two questions you were asked, the computer has randomly determined that you will be paid for Question {{ beliefquestion }}.
+    <br>
+    <br>
+    {% if beliefquestion == 2 %}
+    The investment your leader chose has {% if groupinvestsuccess %}succeeded{% else %}failed{% endif %}.<br>
+    {% endif %}
+    Your prediction of the chance that your leader has chosen Investment X{% if beliefquestion == 2 %} (given that the investment has {% if groupinvestsuccess %}succeeded{% else %}failed{% endif %}){% endif %} was {% if beliefquestion == 1 %}{{ prior }}{% elif beliefquestion == 2 and groupinvestsuccess %}{{ posteriorsuccess }}{% elif beliefquestion == 2 and not groupinvestsuccess %}{{ posteriorfailure }}{% endif %}.
+    <br>
+    <br>
+    You have received {{ payoffbelief }} ECU for your prediction.
+    {% endif %}
+    <br>
+    <br>
+    Your total payment from Task 1 is {{ task1payoff }} ECU.
+</p>
+{% endif %}
+
+<!--Task 2-->
+{% if taskpaid == 2 %}
+<p align="left">
+    The computer has randomly determined that {% if dictator %}your{% else %}your matched partner's{% endif %} allocation decision will be implemented for payment.
+    <br>
+    <br>
+    {% if dictator %}You chose to keep {{ dictator_amt }}{% else %}Your matched partner chose to give you {{ recipient_amt }}{% endif %} ECU.
+    <br>
+    <br>
+    Your total payment from Task 2 is {{ task2payoff }} ECU.
+</p>
+{% endif %}
+
+<!--Total Payment-->
+<p align="left">
+    <br>
+    <br>
+    The investment in the questionnaire has {% if participant.vars.risk_success %}succeeded{% else %}failed{% endif %}, giving you an additional payoff of {{ participant.vars.risk_payoff }} ECU.
+    <br>
+    <br>
+    You have also received ${{ show_up }} for completing the experiment.
+    <br>
+    <br>
+    With a conversion rate of {{ session.config.dollar_convert }} ECU to 1 AUD, this makes your total payment for the experiment today ${{ player.exp_payoff_AUD|floatformat:2 }}.
+    <br>
+    <br>
+    <br>
+    <br>
+    <center><b>Click the button below to receive instructions on how to collect your payment.</b></center>
+    <br>
+</p>
+
+<div align="center">
+    <button class="btn-primary btn next">END EXPERIMENT</button>
+</div>
+
+{% endblock %}

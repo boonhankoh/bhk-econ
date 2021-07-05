@@ -1,0 +1,342 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  Table4
+       log:  C:\Users\BoonHan\Dropbox\University\Research\Projects\Beliefs-Effort_Luck\STATA\Paper-Final\Logs/Table4.log
+  log type:  text
+ opened on:   5 Jul 2021, 17:00:15
+
+. use "Data/Exp1-cleaned-long-state.dta", clear
+
+. keep if b_Group3==1
+(804 observations deleted)
+
+. 
+. * Pooled
+. qui reg LogitPosterior LogitUnconditional LogitStateGood LogitStateBad, nocon vce(cluster ID)
+
+. 
+. lincom LogitUnconditional-1
+
+ ( 1)  LogitUnconditional = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.3053574   .0392318    -7.78   0.000    -.3827091   -.2280056
+------------------------------------------------------------------------------
+
+. local est1 = r(estimate)
+
+. local tstat1 = r(estimate)/r(se)
+
+. local pval1 = tprob(r(df), abs(`tstat1'))
+
+. 
+. lincom LogitStateGood-1
+
+ ( 1)  LogitStateGood = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2494672   .0514833    -4.85   0.000    -.3509748   -.1479596
+------------------------------------------------------------------------------
+
+. local est2 = r(estimate)
+
+. local tstat2 = r(estimate)/r(se)
+
+. local pval2 = tprob(r(df), abs(`tstat2'))
+
+. 
+. lincom LogitStateBad-1
+
+ ( 1)  LogitStateBad = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |    -.03426    .066603    -0.51   0.608    -.1655785    .0970584
+------------------------------------------------------------------------------
+
+. local est3 = r(estimate)
+
+. local tstat3 = r(estimate)/r(se)
+
+. local pval3 = tprob(r(df), abs(`tstat3'))
+
+. 
+. lincom LogitStateGood-LogitStateBad
+
+ ( 1)  LogitStateGood - LogitStateBad = 0
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2152071   .0674614    -3.19   0.002    -.3482182   -.0821961
+------------------------------------------------------------------------------
+
+. local est4 = r(estimate)
+
+. local tstat4 = r(estimate)/r(se)
+
+. local pval4 = tprob(r(df), abs(`tstat4'))
+
+. 
+. outreg2 using "Tables/Table4", label ctitle("Dependent variable: Logit(posterior)", "Pooled") ///
+>         adds(delta,`est1',t-stat_delta,`tstat1',p-val_delta,`pval1', ///
+>         gammaG,`est2',t-stat_gammaG,`tstat2',p-val_gammaG,`pval2', ///
+>         gammaB,`est3',t-stat_gammaB,`tstat3',p-val_gammaB,`pval3', ///
+>         gammaG=gammaB,`est4',t-stat_gammaG=gammaB,`tstat4',p-val_gammaG=gammaB,`pval4') bdec(3) sdec(3) replace tex excel noas
+Tables/Table4.tex
+Tables/Table4.xml
+dir : seeout
+
+. 
+. * Separate by treatments
+. foreach x of varlist RA LA HA GA {
+  2. qui reg LogitPosterior LogitUnconditional LogitStateGood LogitStateBad if `x'==1, nocon vce(cluster ID)
+  3. 
+. lincom LogitUnconditional-1
+  4. local est1 = r(estimate)
+  5. local tstat1 = r(estimate)/r(se)
+  6. local pval1 = tprob(r(df), abs(`tstat1'))
+  7. 
+. lincom LogitStateGood-1
+  8. local est2 = r(estimate)
+  9. local tstat2 = r(estimate)/r(se)
+ 10. local pval2 = tprob(r(df), abs(`tstat2'))
+ 11. 
+. lincom LogitStateBad-1
+ 12. local est3 = r(estimate)
+ 13. local tstat3 = r(estimate)/r(se)
+ 14. local pval3 = tprob(r(df), abs(`tstat3'))
+ 15. 
+. lincom LogitStateGood-LogitStateBad
+ 16. local est4 = r(estimate)
+ 17. local tstat4 = r(estimate)/r(se)
+ 18. local pval4 = tprob(r(df), abs(`tstat4'))
+ 19. 
+. outreg2 using "Tables/Table4", label ctitle("Dependent variable: Logit(posterior)", "`x'") ///
+>         adds(delta,`est1',t-stat_delta,`tstat1',p-val_delta,`pval1', ///
+>         gammaG,`est2',t-stat_gammaG,`tstat2',p-val_gammaG,`pval2', ///
+>         gammaB,`est3',t-stat_gammaB,`tstat3',p-val_gammaB,`pval3', ///
+>         gammaG=gammaB,`est4',t-stat_gammaG=gammaB,`tstat4',p-val_gammaG=gammaB,`pval4') bdec(3) sdec(3) append tex excel noas
+ 20. 
+. }
+
+ ( 1)  LogitUnconditional = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2358623   .0713403    -3.31   0.001    -.3765211   -.0952035
+------------------------------------------------------------------------------
+
+ ( 1)  LogitStateGood = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2556558   .0894925    -2.86   0.005    -.4321046   -.0792069
+------------------------------------------------------------------------------
+
+ ( 1)  LogitStateBad = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0680457    .091748    -0.74   0.459    -.2489417    .1128504
+------------------------------------------------------------------------------
+
+ ( 1)  LogitStateGood - LogitStateBad = 0
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.1876101   .1181109    -1.59   0.114    -.4204847    .0452645
+------------------------------------------------------------------------------
+Tables/Table4.tex
+Tables/Table4.xml
+dir : seeout
+
+ ( 1)  LogitUnconditional = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.3081994   .0538749    -5.72   0.000    -.4144224   -.2019764
+------------------------------------------------------------------------------
+
+ ( 1)  LogitStateGood = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   -.378212   .0790936    -4.78   0.000    -.5341577   -.2222663
+------------------------------------------------------------------------------
+
+ ( 1)  LogitStateBad = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0583377   .1169479     0.50   0.618    -.1722438    .2889193
+------------------------------------------------------------------------------
+
+ ( 1)  LogitStateGood - LogitStateBad = 0
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.4365497   .1424405    -3.06   0.002    -.7173941   -.1557053
+------------------------------------------------------------------------------
+Tables/Table4.tex
+Tables/Table4.xml
+dir : seeout
+
+ ( 1)  LogitUnconditional = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2973416   .0579085    -5.13   0.000    -.4115176   -.1831656
+------------------------------------------------------------------------------
+
+ ( 1)  LogitStateGood = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.1525766   .0808454    -1.89   0.061    -.3119763     .006823
+------------------------------------------------------------------------------
+
+ ( 1)  LogitStateBad = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0537878   .0721541    -0.75   0.457    -.1960512    .0884756
+------------------------------------------------------------------------------
+
+ ( 1)  LogitStateGood - LogitStateBad = 0
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0987888   .0914125    -1.08   0.281    -.2790233    .0814456
+------------------------------------------------------------------------------
+Tables/Table4.tex
+Tables/Table4.xml
+dir : seeout
+
+ ( 1)  LogitUnconditional = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   -.471471   .1346021    -3.50   0.001    -.7368608   -.2060813
+------------------------------------------------------------------------------
+
+ ( 1)  LogitStateGood = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2020683   .0981058    -2.06   0.041    -.3954998   -.0086369
+------------------------------------------------------------------------------
+
+ ( 1)  LogitStateBad = 1
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   -.124116   .1138974    -1.09   0.277    -.3486831    .1004511
+------------------------------------------------------------------------------
+
+ ( 1)  LogitStateGood - LogitStateBad = 0
+
+------------------------------------------------------------------------------
+LogitPoste~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0779523   .1522005    -0.51   0.609      -.37804    .2221354
+------------------------------------------------------------------------------
+Tables/Table4.tex
+Tables/Table4.xml
+dir : seeout
+
+. 
+. * Joint test of coefficients across appointment mechanisms
+. use "Data/Exp1-cleaned-long-state.dta", clear
+
+. keep if b_Group3==1
+(804 observations deleted)
+
+. replace Treatment=3 if Treatment==1 // merge LA0 and LA1 together
+(410 real changes made)
+
+. replace Treatment=4 if Treatment==2 // merge HA0 and HA1 together
+(410 real changes made)
+
+. 
+. reg LogitPosterior i.Treatment#c.LogitUnconditional i.Treatment#c.LogitStateGood i.Treatment#c.LogitStateBad, nocon vce(cluster ID)
+
+Linear regression                               Number of obs     =      2,460
+                                                F(12, 204)        =     160.02
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.6129
+                                                Root MSE          =     1.7222
+
+                                                     (Std. Err. adjusted for 205 clusters in ID)
+------------------------------------------------------------------------------------------------
+                               |               Robust
+                LogitPosterior |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------------------------+----------------------------------------------------------------
+Treatment#c.LogitUnconditional |
+                          LA1  |   .6918006   .0539298    12.83   0.000     .5854692    .7981319
+                          HA1  |   .7026584   .0579676    12.12   0.000      .588366    .8169509
+                          RA1  |   .7641377   .0713253    10.71   0.000     .6235083    .9047671
+                          GA1  |    .528529    .134574     3.93   0.000     .2631948    .7938632
+                               |
+    Treatment#c.LogitStateGood |
+                          LA1  |    .621788   .0791742     7.85   0.000     .4656833    .7778927
+                          HA1  |   .8474234   .0809278    10.47   0.000     .6878612    1.006986
+                          RA1  |   .7443442   .0894738     8.32   0.000     .5679323    .9207562
+                          GA1  |   .7979317   .0980853     8.14   0.000     .6045407    .9913226
+                               |
+     Treatment#c.LogitStateBad |
+                          LA1  |   1.058338   .1170671     9.04   0.000     .8275211    1.289154
+                          HA1  |   .9462122   .0722277    13.10   0.000     .8038037    1.088621
+                          RA1  |   .9319543   .0917288    10.16   0.000     .7510961    1.112813
+                          GA1  |    .875884   .1138736     7.69   0.000     .6513639    1.100404
+------------------------------------------------------------------------------------------------
+
+. 
+. testparm Treatment#c.LogitUnconditional, equal
+
+ ( 1)  - 3.Treatment#c.LogitUnconditional + 4.Treatment#c.LogitUnconditional = 0
+ ( 2)  - 3.Treatment#c.LogitUnconditional + 5b.Treatment#c.LogitUnconditional = 0
+ ( 3)  - 3.Treatment#c.LogitUnconditional + 6.Treatment#c.LogitUnconditional = 0
+
+       F(  3,   204) =    1.00
+            Prob > F =    0.3949
+
+. testparm Treatment#c.LogitStateGood, equal
+
+ ( 1)  - 3.Treatment#c.LogitStateGood + 4.Treatment#c.LogitStateGood = 0
+ ( 2)  - 3.Treatment#c.LogitStateGood + 5b.Treatment#c.LogitStateGood = 0
+ ( 3)  - 3.Treatment#c.LogitStateGood + 6.Treatment#c.LogitStateGood = 0
+
+       F(  3,   204) =    2.04
+            Prob > F =    0.1098
+
+. testparm Treatment#c.LogitStateBad, equal
+
+ ( 1)  - 3.Treatment#c.LogitStateBad + 4.Treatment#c.LogitStateBad = 0
+ ( 2)  - 3.Treatment#c.LogitStateBad + 5b.Treatment#c.LogitStateBad = 0
+ ( 3)  - 3.Treatment#c.LogitStateBad + 6.Treatment#c.LogitStateBad = 0
+
+       F(  3,   204) =    0.50
+            Prob > F =    0.6857
+
+. 
+. capture log close _all

@@ -1,0 +1,41 @@
+		(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)	(9)
+		Dependent variable: Logit(posterior)	Dependent variable: Logit(posterior)	Dependent variable: Logit(posterior)	Dependent variable: Logit(posterior)	Dependent variable: Logit(posterior)	Dependent variable: Logit(posterior)	Dependent variable: Logit(posterior)	Dependent variable: Logit(posterior)	Dependent variable: Logit(posterior)
+VARIABLES	LABELS	2-Component Model	2-Component Model	2-Component Model	2-Component Model	3-Component Model	3-Component Model	3-Component Model	3-Component Model	3-Component Model
+										
+1bn.Class#c.LogitUnconditional				0.936					0.972	
+				(0.011)					(0.005)	
+2.Class#c.LogitUnconditional				0.148					-0.109	
+				(0.086)					(0.137)	
+1bn.Class#c.LogitStateGood				0.535					0.431	
+				(0.031)					(0.031)	
+2.Class#c.LogitStateGood				1.936					3.566	
+				(0.405)					(0.807)	
+1bn.Class#c.LogitStateBad				0.668					0.477	
+				(0.044)					(0.040)	
+2.Class#c.LogitStateBad				1.945					2.942	
+				(0.407)					(0.642)	
+1bn.Class				0.000					0.000	
+				(0.000)					(0.000)	
+2.Class				0.000					0.000	
+				(0.000)					(0.000)	
+o._cons		0.000				0.000				
+		(0.000)				(0.000)				
+var(e.LogitPosterior)#1bn.Class					0.407					0.246
+					(0.036)					(0.020)
+var(e.LogitPosterior)#2.Class					11.688					20.515
+					(2.588)					(2.284)
+3.Class#c.LogitUnconditional									0.302	
+									(0.031)	
+3.Class#c.LogitStateGood									1.029	
+									(0.054)	
+3.Class#c.LogitStateBad									1.103	
+									(0.067)	
+3.Class									0.000	
+									(0.000)	
+var(e.LogitPosterior)#3.Class										0.380
+										(0.062)
+Constant	Constant		-2.083				-2.623	-0.808		
+			(0.205)				(0.202)	(0.134)		
+										
+Observations		2,460	2,460	2,460	2,460	2,460	2,460	2,460	2,460	2,460
+Robust standard errors in parentheses										

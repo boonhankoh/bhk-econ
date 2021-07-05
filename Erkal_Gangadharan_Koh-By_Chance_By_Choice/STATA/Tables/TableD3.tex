@@ -1,0 +1,32 @@
+\documentclass[]{article}
+\setlength{\pdfpagewidth}{8.5in} \setlength{\pdfpageheight}{11in}
+\begin{document}
+\begin{tabular}{lccccc} \hline
+ & (1) & (2) & (3) & (4) & (5) \\
+ & Dependent variable: Logit(posterior) & Dependent variable: Logit(posterior) & Dependent variable: Logit(posterior) & Dependent variable: Logit(posterior) & Dependent variable: Logit(posterior) \\
+VARIABLES & Pooled & RA & LA & HA & GA \\ \hline
+ &  &  &  &  &  \\
+LG: Logit of interim belief & 0.733 & 0.764 & 0.793 & 0.771 & 0.529 \\
+ & (0.049) & (0.071) & (0.057) & (0.093) & (0.135) \\
+LG: Logit of probability of good state & 0.742 & 0.744 & 0.728 & 0.752 & 0.798 \\
+ & (0.060) & (0.089) & (0.078) & (0.094) & (0.098) \\
+LG: Logit of probability of bad state & 0.948 & 0.932 & 0.937 & 0.994 & 0.876 \\
+ & (0.076) & (0.092) & (0.119) & (0.090) & (0.114) \\
+ &  &  &  &  &  \\
+Observations & 1,640 & 410 & 410 & 410 & 410 \\
+R-squared & 0.636 & 0.686 & 0.741 & 0.613 & 0.421 \\
+delta & -0.267 & -0.236 & -0.207 & -0.229 & -0.471 \\
+t-stat\_delta & -5.479 & -3.306 & -3.621 & -2.458 & -3.503 \\
+p-val\_delta & 1.25e-07 & 0.00112 & 0.000371 & 0.0148 & 0.000566 \\
+gammaG & -0.258 & -0.256 & -0.272 & -0.248 & -0.202 \\
+t-stat\_gammaG & -4.268 & -2.857 & -3.468 & -2.648 & -2.060 \\
+p-val\_gammaG & 3.02e-05 & 0.00472 & 0.000639 & 0.00872 & 0.0407 \\
+gammaB & -0.0520 & -0.0680 & -0.0628 & -0.00629 & -0.124 \\
+t-stat\_gammaB & -0.688 & -0.742 & -0.530 & -0.0700 & -1.090 \\
+p-val\_gammaB & 0.492 & 0.459 & 0.597 & 0.944 & 0.277 \\
+gammaG=gammaB & -0.206 & -0.188 & -0.209 & -0.242 & -0.0780 \\
+t-stat\_gammaG=gammaB & -2.522 & -1.588 & -1.637 & -2.218 & -0.512 \\
+ p-val\_gammaG=gammaB & 0.0124 & 0.114 & 0.103 & 0.0277 & 0.609 \\ \hline
+\multicolumn{6}{c}{ Robust standard errors in parentheses} \\
+\end{tabular}
+\end{document}

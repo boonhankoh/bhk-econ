@@ -1,0 +1,35 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block head_title %}
+Overview
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+<div class="card-header bg-transparent mainheader" >
+    <h4>
+        <center>
+            Overview of Experiment
+        </center>
+    </h4>
+</div>
+<br>
+
+<p align="left">
+    Thank you for participating! You will receive ${{ session.config.show_up }} for completing today’s experiment, and the instructions explain how you can make decisions and earn more money.
+    <br>
+    <br>
+    You will participate in two tasks today: Task 1 and Task 2. You will be paid for the decisions you make in either Task 1 or Task 2. Whether you will be paid for Task 1 or Task 2 will be randomly determined by the computer at the end of the session.
+    <br>
+    <br>
+    During the experiments, we will be using Experimental Currency Units (ECU). At the end of the session, we will convert the amount you earn into Australian Dollars (AUD) using the following conversion rate: {{ session.config.dollar_convert }} ECU = 1 AUD.
+    <br>
+    <br>
+    At the end of Task 2, you will be asked to fill out a brief questionnaire asking you some general questions. All of the decisions you make in today’s session will remain anonymous, and you will never learn the identities of the other participants in today’s session.
+</p>
+
+{% endblock %}

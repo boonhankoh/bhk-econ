@@ -1,0 +1,21 @@
+		(1)	(2)
+		Dependent variable:	Dependent variable:
+		=1 if member would have chosen e_H as DM	=1 if member would have chosen e_H as DM
+VARIABLES	LABELS	Round 1 only	All rounds
+			
+dg_gave_perc	% endowment transferred in DG	0.007***	0.005***
+		(0.001)	(0.001)
+risk_invest_perc	% endowment invested in RT	0.001	0.000
+		(0.001)	(0.001)
+2.param	Parameter = 2, 300, 50	0.043	0.034
+		(0.072)	(0.030)
+3.param	Parameter = 3, 200, 0	0.069	0.010
+		(0.072)	(0.034)
+2.round	Round # = 2		-0.096***
+			(0.033)
+3.round	Round # = 3		-0.041
+			(0.036)
+			
+Observations		198	594
+Standard errors in parentheses			
+*** p<0.01, ** p<0.05, * p<0.10			

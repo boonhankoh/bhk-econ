@@ -1,0 +1,152 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block head_title %}
+PLS/Consent
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'back_button_v2/js/prev_next_button.js' %}"></script>
+{% endblock %}
+
+{% block styles %}
+<link href="{% static 'back_button_v2/css/custom.css' %}" rel="stylesheet">
+<style>
+.otree-form-errors {
+  visibility: hidden;
+  display: none;
+}
+</style>
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+<body>
+    <!-- Tab navigation -->
+    <ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center " id="myTab" role="tablist">
+        <li class="nav-item" >
+            <a class="nav-link active" id="page1-tab" data-toggle="tab" href="#page1" role="tab" aria-controls="page1" onclick="topFunction()">Page 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="page2-tab" data-toggle="tab" href="#page2" role="tab" aria-controls="part2" onclick="topFunction()">Page 2</a>
+        </li>
+    </ul>
+
+    <br>
+    <br>
+
+    <!-- Tab content -->
+
+    <div class="tab-content" id="myTabContent">
+
+        <!-- Page 1 -->
+        <div class="tab-pane show active" id="page1" role="tabpanel" aria-labelledby="page1-tab">
+
+            <div class="card-header bg-transparent mainheader" >
+                <h4>
+                    <center>
+                        Plain Language Statement<br>
+                        Project Title: Experiments in Individual & Group Decision Making
+                    </center>
+                </h4>
+            </div>
+            <br>
+
+            <p align="left">
+                <b>Introduction</b><br>
+                You are invited to participate in an experiment that is expected to take about 1 hour of your time. We are interested in understanding decision making in experiments using human subjects as participants. This research is conducted by Professor Nisvan Erkal from the Department of Economics at The University of Melbourne, Professor Lata Gangadharan from the Department of Economics at Monash University, and Dr Boon Han Koh from the School of Economics at the University of East Anglia. This research project is funded by the Australian Research Council and has been approved by the Human Ethics Committee of the University of Melbourne. It is expected that the findings of this project will help in the design of better institutions and improve the understanding of decision making.
+                <br>
+                <br>
+                <b>What you will need to do</b><br>
+                You will be given a set of instructions explaining the experiment and what you have to do in detail. The experiment is simple and requires no prior knowledge of economics. It is unlikely that there is any physical or mental discomfort associated with participation.
+                <br>
+                <br>
+                <b>How will my confidentiality be protected?</b><br>
+                The data from the experiment will be collected using randomly assigned identification numbers, so your choices will always remain anonymous, within the limits of the law. Payments will be made using PayID, so the random identification number assigned to you will be temporarily linked to your PayID details. However, this link, hence any identifying information, will be removed from the data before it is stored. All data will be stored indefinitely and securely, and will be accessible only by those involved in the research project. Your participation is completely voluntary and you may withdraw from the experiment without prejudice at any time.
+                <br>
+                <br>
+                Once the research project is completed, the results may be presented at academic conferences and published in academic journals. At this time, the data from this experiment will be made public without any identifying information to protect your privacy. If you wish to receive a copy of the published report, you can contact any of the researchers.
+                <br>
+                <br>
+                Participants for this experiment have been chosen from a random pool.  In the unlikely event that you are a student of any of the researchers, please be advised that the experiment is completely voluntary and that your decision to participate, as well as the outcome of this experiment, will have no impact on your grades or the student-lecturer relationship.
+                <br>
+                <br>
+                <b>Where can I get further information?</b><br>
+                Should you require any further information, or have any concerns, please do not hesitate to contact Professor Nisvan Erkal (contact details below). If you have any concerns about the conduct of the project, you are welcome to contact the Executive Officer, Human Research Ethics at The University of Melbourne (Phone: 03 8344 2073 or Fax: 03 9347 6739).
+                <br>
+                <br>
+                <b>Contact details of researchers:</b><br>
+                <ol>
+                    <li>Prof Nisvan Erkal (Principal Researcher):<br>
+                        Office 324, Faculty of Business and Economics Building 105, The University of Melbourne.<br>
+                        Telephone: +61 3 8344 3307. Email: n.erkal@unimelb.edu.au</li>
+                    <li>Prof Lata Gangadharan (Co-researcher):<br>
+                        Clayton Campus, Room E959, Building 11, Monash University.<br>
+                        Telephone: +61 3 9905 2345. Email: lata.gangadharan@monash.edu</li>
+                    <li>Dr Boon Han Koh (Co-researcher):<br>
+                        School of Economics, University of East Anglia, Registry Building 2.19, Norwich Research Park, NR4 7TJ, United Kingdom.<br>
+                        Telephone: +44 1603 593 446. Email: b.koh@uea.ac.uk</li>
+                </ol>
+                <br>
+                FHEAC No.: 1544873<br>
+                Date: 16 September 2020<br>
+                Version: 4
+            </p>
+
+            <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">NEXT</button>
+
+        </div>
+
+        <!-- Page 2 -->
+
+        <div class="tab-pane" id="page2" role="tabpanel" aria-labelledby="page2-tab">
+
+            <div class="card-header bg-transparent mainheader" >
+                <h4>
+                    <center>
+                        Consent Form for Participation in an Economics Experiment<br>
+                        Project Title: Experiments in Individual & Group Decision Making
+                    </center>
+                </h4>
+            </div>
+            <br>
+
+            <p align="left">
+                This is research to help understand decision making in experiments using human subjects as participants. I understand that the entire experiment (including instructions) is expected to last less than 1 hour, and that there is no conceivable physical or mental discomfort associated with participation.
+                <br>
+                <br>
+                I will be paid at the end of the experiment using the PayID details that I will be asked to provide at the end of the experiment. The amount of money I will be paid will depend upon the decisions that I make. On average, participants are expected to earn between AU$15 and AU$30 per hour. My participation in the experiment is completely voluntary and I am free to leave the experiment at any time. If I decide to leave the experiment before its completion, I will be paid the show-up fee of AU$5. However, I will not receive any payment for my decisions in the experiment.
+                <br>
+                <br>
+                I understand that the data from the experiment will be collected using randomly assigned identification numbers, so my choices will always remain anonymous. To receive my payment, the random identification number that I am assigned will be temporarily linked to my PayID details. However, this link, hence any identifying information, will be removed from the data before it is stored. I also understand that confidentiality of data will be preserved subject to any legal requirements. If, prior to processing the data, I do not wish for my data to be included in the project, I may request to have my decisions removed from the data set.
+                <br>
+                <br>
+                In the unlikely event that I am a student of Prof Nisvan Erkal, Prof Lata Gangadharan and/or Dr Boon Han Koh, I understand that the experiment is completely voluntary and that my decision to participate, as well as the outcome of this experiment, will have no impact on my grades or the student-lecturer/tutor relationship.
+                <br>
+                <br>
+                If I have any questions about this research project, I can contact Professor Nisvan Erkal at 03 8344 3307, Office 324, Faculty of Business and Economics Building 105. If I have any concerns about the treatment of research participants, I can contact the Human Research Ethics Committee at The University of Melbourne (Phone: 03 8344 2073  or Fax: 03 9347 6739).
+                <br>
+                <br>
+                I agree to take part in the research project mentioned above. I have read the Plain Language Statement. By selecting "I agree", I declare myself fully informed and I agree to participate on a purely voluntary basis. I also attest to being at least 18 years old.
+                <br>
+                <br>
+                <div style="margin-left: 50px">
+                    <b>{% formfields %}</b>
+                    <br>
+                </div>
+                Please note that if you select "I do not agree", the experiment will end for you.
+            </p>
+
+            <button onclick="topFunction()" type="button" class="prevtab btn-secondary btn back">BACK</button>
+            <button class="btn-primary btn next">NEXT</button>
+
+        </div>
+
+    </div>
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+		(1)	(2)
+		Dependent variable: Logit(posterior)	Dependent variable: Logit(posterior)
+VARIABLES	LABELS	Choose high effort = 0	Choose high effort = 1
+			
+LogitUnconditional	LG: Logit of interim belief	0.710	0.603
+		(0.048)	(0.073)
+LogitStateGood	LG: Logit of probability of good state	0.698	0.957
+		(0.059)	(0.110)
+LogitStateBad	LG: Logit of probability of bad state	0.923	0.951
+		(0.080)	(0.100)
+			
+Observations		1,646	814
+R-squared		0.626	0.553
+delta		-0.290	-0.397
+t-stat_delta		-6.089	-5.443
+p-val_delta		6.20e-09	2.68e-07
+gammaG		-0.302	-0.0430
+t-stat_gammaG		-5.122	-0.390
+p-val_gammaG		7.43e-07	0.697
+gammaB		-0.0765	-0.0492
+t-stat_gammaB		-0.958	-0.494
+p-val_gammaB		0.339	0.622
+gammaG=gammaB		-0.225	0.00620
+t-stat_gammaG=gammaB		-2.568	0.0485
+p-val_gammaG=gammaB		0.0110	0.961
+Robust standard errors in parentheses			

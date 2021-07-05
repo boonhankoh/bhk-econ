@@ -1,0 +1,388 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  Table6
+       log:  C:\Users\BoonHan\Dropbox\University\Research\Projects\Beliefs-Effort_Luck\STATA\Paper-Final\Logs/Table6.log
+  log type:  text
+ opened on:   5 Jul 2021, 17:00:17
+
+. use "Data/Exp2-cleaned-long-state.dta", clear
+
+. keep if consistent
+(522 observations deleted)
+
+. keep if TreatS
+(1,014 observations deleted)
+
+. 
+. * Round 1 only, by effort choice
+. local replace replace
+
+. foreach x of numlist 0/1 {
+  2.     reg logit_posterior logit_prior logit_prob_success logit_prob_failure if high_effort_all==`x' & round==1, nocon vce(cluster id)
+  3.         
+.         lincom logit_prior-1
+  4.         local est1 = r(estimate)
+  5.         local tstat1 = r(estimate)/r(se)
+  6.         local pval1 = tprob(r(df), abs(`tstat1'))
+  7. 
+.         lincom logit_prob_success-1
+  8.         local est2 = r(estimate)
+  9.         local tstat2 = r(estimate)/r(se)
+ 10.         local pval2 = tprob(r(df), abs(`tstat2'))
+ 11. 
+.         lincom logit_prob_failure-1
+ 12.         local est3 = r(estimate)
+ 13.         local tstat3 = r(estimate)/r(se)
+ 14.         local pval3 = tprob(r(df), abs(`tstat3'))
+ 15. 
+.         lincom logit_prob_success-logit_prob_failure
+ 16.         local est4 = r(estimate)
+ 17.         local tstat4 = r(estimate)/r(se)
+ 18.         local pval4 = tprob(r(df), abs(`tstat4'))
+ 19. 
+.         outreg2 using "Tables/Table6", label ctitle("Dependent variable: Logit(posterior)", , "Round 1 only", "High Effort = `x'") ///
+>                 adds(delta,`est1',t-stat_delta,`tstat1',p-val_delta,`pval1', ///
+>         gammaG,`est2',t-stat_gammaG,`tstat2',p-val_gammaG,`pval2', ///
+>         gammaB,`est3',t-stat_gammaB,`tstat3',p-val_gammaB,`pval3', ///
+>         gammaG=gammaB,`est4',t-stat_gammaG=gammaB,`tstat4',p-val_gammaG=gammaB,`pval4') bdec(3) sdec(3) `replace' tex excel noas
+ 20. local replace append
+ 21. }
+
+Linear regression                               Number of obs     =        204
+                                                F(3, 101)         =      14.08
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3701
+                                                Root MSE          =     3.3553
+
+                                         (Std. Err. adjusted for 102 clusters in id)
+------------------------------------------------------------------------------------
+                   |               Robust
+   logit_posterior |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------------+----------------------------------------------------------------
+       logit_prior |   .5600922   .1095312     5.11   0.000     .3428117    .7773727
+logit_prob_success |   .4899934   .2617698     1.87   0.064    -.0292874    1.009274
+logit_prob_failure |   .7744046   .2879273     2.69   0.008     .2032342    1.345575
+------------------------------------------------------------------------------------
+
+ ( 1)  logit_prior = 1
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.4399078   .1095312    -4.02   0.000    -.6571883   -.2226273
+------------------------------------------------------------------------------
+
+ ( 1)  logit_prob_success = 1
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.5100066   .2617698    -1.95   0.054    -1.029287    .0092742
+------------------------------------------------------------------------------
+
+ ( 1)  logit_prob_failure = 1
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2255954   .2879273    -0.78   0.435    -.7967658     .345575
+------------------------------------------------------------------------------
+
+ ( 1)  logit_prob_success - logit_prob_failure = 0
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2844112   .3251287    -0.87   0.384    -.9293791    .3605566
+------------------------------------------------------------------------------
+Tables/Table6.tex
+Tables/Table6.xml
+dir : seeout
+
+Linear regression                               Number of obs     =         92
+                                                F(3, 45)          =      52.47
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.5318
+                                                Root MSE          =     1.1461
+
+                                          (Std. Err. adjusted for 46 clusters in id)
+------------------------------------------------------------------------------------
+                   |               Robust
+   logit_posterior |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------------+----------------------------------------------------------------
+       logit_prior |   .3947006   .0624871     6.32   0.000     .2688451    .5205561
+logit_prob_success |   .9949202   .1427829     6.97   0.000     .7073407      1.2825
+logit_prob_failure |   .6355514   .1918008     3.31   0.002     .2492448    1.021858
+------------------------------------------------------------------------------------
+
+ ( 1)  logit_prior = 1
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.6052994   .0624871    -9.69   0.000    -.7311549   -.4794439
+------------------------------------------------------------------------------
+
+ ( 1)  logit_prob_success = 1
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0050798   .1427829    -0.04   0.972    -.2926593    .2824998
+------------------------------------------------------------------------------
+
+ ( 1)  logit_prob_failure = 1
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.3644486   .1918008    -1.90   0.064    -.7507552    .0218581
+------------------------------------------------------------------------------
+
+ ( 1)  logit_prob_success - logit_prob_failure = 0
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .3593688    .214307     1.68   0.100    -.0722677    .7910053
+------------------------------------------------------------------------------
+Tables/Table6.tex
+Tables/Table6.xml
+dir : seeout
+
+. 
+. * Joint test of coefficients between columns (1) and (2)
+. reg logit_posterior i.high_effort_all#c.logit_prior i.high_effort_all#c.logit_prob_success i.high_effort_all#c.logit_prob_failure if round==1, nocon vce(cluster id)
+
+Linear regression                               Number of obs     =        296
+                                                F(6, 147)         =      33.78
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3806
+                                                Root MSE          =     2.8646
+
+                                                           (Std. Err. adjusted for 148 clusters in id)
+------------------------------------------------------------------------------------------------------
+                                     |               Robust
+                     logit_posterior |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------------------------------+----------------------------------------------------------------
+       high_effort_all#c.logit_prior |
+                                  0  |   .5600922   .1097571     5.10   0.000     .3431865    .7769979
+                                  1  |   .3947006   .0618552     6.38   0.000     .2724603     .516941
+                                     |
+high_effort_all#c.logit_prob_success |
+                                  0  |   .4899934   .2623097     1.87   0.064    -.0283917    1.008379
+                                  1  |   .9949202    .141339     7.04   0.000     .7156013    1.274239
+                                     |
+high_effort_all#c.logit_prob_failure |
+                                  0  |   .7744046   .2885212     2.68   0.008     .2042195     1.34459
+                                  1  |   .6355514   .1898612     3.35   0.001     .2603414    1.010762
+------------------------------------------------------------------------------------------------------
+
+. testparm high_effort_all#c.logit_prior, equal
+
+ ( 1)  - 0b.high_effort_all#c.logit_prior + 1.high_effort_all#c.logit_prior = 0
+
+       F(  1,   147) =    1.72
+            Prob > F =    0.1913
+
+. testparm high_effort_all#c.logit_prob_success, equal
+
+ ( 1)  - 0b.high_effort_all#c.logit_prob_success + 1.high_effort_all#c.logit_prob_success = 0
+
+       F(  1,   147) =    2.87
+            Prob > F =    0.0923
+
+. testparm high_effort_all#c.logit_prob_failure, equal
+
+ ( 1)  - 0b.high_effort_all#c.logit_prob_failure + 1.high_effort_all#c.logit_prob_failure = 0
+
+       F(  1,   147) =    0.16
+            Prob > F =    0.6883
+
+. 
+. * All rounds, by effort choice
+. local replace append
+
+. foreach x of numlist 0/1 {
+  2.     reg logit_posterior logit_prior logit_prob_success logit_prob_failure if high_effort_all==`x', nocon vce(cluster id)
+  3.         
+.         lincom logit_prior-1
+  4.         local est1 = r(estimate)
+  5.         local tstat1 = r(estimate)/r(se)
+  6.         local pval1 = tprob(r(df), abs(`tstat1'))
+  7. 
+.         lincom logit_prob_success-1
+  8.         local est2 = r(estimate)
+  9.         local tstat2 = r(estimate)/r(se)
+ 10.         local pval2 = tprob(r(df), abs(`tstat2'))
+ 11. 
+.         lincom logit_prob_failure-1
+ 12.         local est3 = r(estimate)
+ 13.         local tstat3 = r(estimate)/r(se)
+ 14.         local pval3 = tprob(r(df), abs(`tstat3'))
+ 15. 
+.         lincom logit_prob_success-logit_prob_failure
+ 16.         local est4 = r(estimate)
+ 17.         local tstat4 = r(estimate)/r(se)
+ 18.         local pval4 = tprob(r(df), abs(`tstat4'))
+ 19. 
+.         outreg2 using "Tables/Table6", label ctitle("Dependent variable: Logit(posterior)", , "All rounds", "High Effort = `x'") ///
+>                 adds(delta,`est1',t-stat_delta,`tstat1',p-val_delta,`pval1', ///
+>         gammaG,`est2',t-stat_gammaG,`tstat2',p-val_gammaG,`pval2', ///
+>         gammaB,`est3',t-stat_gammaB,`tstat3',p-val_gammaB,`pval3', ///
+>         gammaG=gammaB,`est4',t-stat_gammaG=gammaB,`tstat4',p-val_gammaG=gammaB,`pval4') bdec(3) sdec(3) `replace' tex excel noas
+ 20. local replace append
+ 21. }
+
+Linear regression                               Number of obs     =        656
+                                                F(3, 136)         =      52.63
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3924
+                                                Root MSE          =     3.0145
+
+                                         (Std. Err. adjusted for 137 clusters in id)
+------------------------------------------------------------------------------------
+                   |               Robust
+   logit_posterior |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------------+----------------------------------------------------------------
+       logit_prior |   .4832592   .0787936     6.13   0.000     .3274401    .6390782
+logit_prob_success |   .6008078   .2100741     2.86   0.005     .1853734    1.016242
+logit_prob_failure |   1.181246   .1876511     6.29   0.000     .8101548    1.552338
+------------------------------------------------------------------------------------
+
+ ( 1)  logit_prior = 1
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.5167408   .0787936    -6.56   0.000    -.6725599   -.3609218
+------------------------------------------------------------------------------
+
+ ( 1)  logit_prob_success = 1
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.3991922   .2100741    -1.90   0.060    -.8146266    .0162421
+------------------------------------------------------------------------------
+
+ ( 1)  logit_prob_failure = 1
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .1812463   .1876511     0.97   0.336    -.1898452    .5523378
+------------------------------------------------------------------------------
+
+ ( 1)  logit_prob_success - logit_prob_failure = 0
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.5804385   .3091046    -1.88   0.063    -1.191712    .0308347
+------------------------------------------------------------------------------
+Tables/Table6.tex
+Tables/Table6.xml
+dir : seeout
+
+Linear regression                               Number of obs     =        232
+                                                F(3, 70)          =      78.32
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.4884
+                                                Root MSE          =     1.7723
+
+                                          (Std. Err. adjusted for 71 clusters in id)
+------------------------------------------------------------------------------------
+                   |               Robust
+   logit_posterior |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------------+----------------------------------------------------------------
+       logit_prior |   .6073363   .0767703     7.91   0.000     .4542227    .7604499
+logit_prob_success |   1.067671   .1725654     6.19   0.000     .7234997    1.411842
+logit_prob_failure |   .7585664   .1706386     4.45   0.000     .4182384    1.098895
+------------------------------------------------------------------------------------
+
+ ( 1)  logit_prior = 1
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.3926637   .0767703    -5.11   0.000    -.5457773   -.2395501
+------------------------------------------------------------------------------
+
+ ( 1)  logit_prob_success = 1
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0676706   .1725654     0.39   0.696    -.2765003    .4118415
+------------------------------------------------------------------------------
+
+ ( 1)  logit_prob_failure = 1
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2414336   .1706386    -1.41   0.162    -.5817616    .0988945
+------------------------------------------------------------------------------
+
+ ( 1)  logit_prob_success - logit_prob_failure = 0
+
+------------------------------------------------------------------------------
+logit_post~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .3091041    .280496     1.10   0.274    -.2503274    .8685357
+------------------------------------------------------------------------------
+Tables/Table6.tex
+Tables/Table6.xml
+dir : seeout
+
+. 
+. * Joint test of coefficients between columns (3) and (4)
+. reg logit_posterior i.high_effort_all#c.logit_prior i.high_effort_all#c.logit_prob_success i.high_effort_all#c.logit_prob_failure, nocon vce(cluster id)
+
+Linear regression                               Number of obs     =        888
+                                                F(6, 147)         =      68.50
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.4045
+                                                Root MSE          =     2.7465
+
+                                                           (Std. Err. adjusted for 148 clusters in id)
+------------------------------------------------------------------------------------------------------
+                                     |               Robust
+                     logit_posterior |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------------------------------+----------------------------------------------------------------
+       high_effort_all#c.logit_prior |
+                                  0  |   .4832592   .0788743     6.13   0.000     .3273852    .6391332
+                                  1  |   .6073363   .0763703     7.95   0.000     .4564107    .7582619
+                                     |
+high_effort_all#c.logit_prob_success |
+                                  0  |   .6008078   .2102894     2.86   0.005     .1852268    1.016389
+                                  1  |   1.067671   .1716663     6.22   0.000     .7284179    1.406923
+                                     |
+high_effort_all#c.logit_prob_failure |
+                                  0  |   1.181246   .1878434     6.29   0.000     .8100238    1.552469
+                                  1  |   .7585664   .1697496     4.47   0.000     .4231017    1.094031
+------------------------------------------------------------------------------------------------------
+
+. testparm high_effort_all#c.logit_prior, equal
+
+ ( 1)  - 0b.high_effort_all#c.logit_prior + 1.high_effort_all#c.logit_prior = 0
+
+       F(  1,   147) =    1.31
+            Prob > F =    0.2542
+
+. testparm high_effort_all#c.logit_prob_success, equal
+
+ ( 1)  - 0b.high_effort_all#c.logit_prob_success + 1.high_effort_all#c.logit_prob_success = 0
+
+       F(  1,   147) =    3.00
+            Prob > F =    0.0852
+
+. testparm high_effort_all#c.logit_prob_failure, equal
+
+ ( 1)  - 0b.high_effort_all#c.logit_prob_failure + 1.high_effort_all#c.logit_prob_failure = 0
+
+       F(  1,   147) =    3.06
+            Prob > F =    0.0824
+
+. 
+. capture log close _all

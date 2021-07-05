@@ -1,0 +1,33 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block head_title %}
+Task 1
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+  $('#proceed').delay(60000).show(0);
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="card-header bg-transparent mainheader" >
+    <h4>
+        <center>
+            Task 1
+        </center>
+    </h4>
+</div>
+<br>
+
+<p align="center">
+    The experimenter will now read out the summary of Task 1 (on page 5 of the <b><a href="{{ session.config.task1summarylink }}" target="_blank">instructions</a></b>).
+</p>
+
+{% endblock %}

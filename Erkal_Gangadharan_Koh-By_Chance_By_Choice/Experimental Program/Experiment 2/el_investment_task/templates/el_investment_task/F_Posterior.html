@@ -1,0 +1,154 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block head_title %}
+Task 1
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+{% block styles %}
+<style>
+.otree-timer {
+  display: none;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<head>
+    <style>
+    table {
+        border: 2px solid black;
+    }
+
+    th, td {
+        padding: 10px;
+        height: 40px;
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div class="card-header bg-transparent mainheader" >
+        <h4>
+            <center>
+                Task 1: {% if player.paid_round_num == 0 %}Practice Round{% else %}Round {{ player.paid_round_num }}{% endif %} Stage 2
+            </center>
+        </h4>
+    </div>
+    <br>
+
+    <p align="left">
+        Your response to Question 1 is given below.
+    </p>
+    <left>
+        <table style="width:100%">
+            <tr>
+                <td style="width:80%; border-style:hidden; text-align:left">
+                    <u><b>Question 1</b></u>
+                </td>
+                <td style="width:20%; border-style:hidden; text-align:left"></td>
+            </tr>
+            <tr>
+                <td style="width:80%; border-style:hidden; text-align:left">
+                    How likely do you think your leader has chosen Investment X?
+                </td>
+                <td style="width:20%; border-style:hidden; text-align:left"></td>
+            </tr>
+            <tr>
+                <td style="width:80%; border-style:hidden; text-align:left">
+                    Specifically, what is the chance out of 100 that your leader has chosen Investment X?
+                </td>
+                <td style="width:20%; border-style:hidden; text-align:left">
+                    <b>{{ player.prior }}</b>
+                </td>
+            </tr>
+        </table>
+    <br>
+    <br>
+    </left>
+
+    <p align="left">
+        <b>In Question 2, you are asked to consider whether your prediction of your leader's decision will be different, given that you know the outcome of the investment chosen by him/her.</b>
+        <br>
+        <br>
+    </p>
+
+    <left>
+        <table style="width:100%">
+            <tr>
+                <td style="width:80%; border-style:hidden; text-align:left">
+                    <u><b>Question 2</b></u>
+                </td>
+                <td style="width:20%; border-style:hidden; text-align:left"></td>
+            </tr>
+<!--            Posterior for Good Outcome -->
+            <tr>
+                <td style="width:80%; border-style:hidden; text-align:left">
+                    <b>(a) Suppose you are informed that the investment chosen by your leader has succeeded.</b>
+                </td>
+                <td style="width:20%; border-style:hidden; text-align:left"></td>
+            </tr>
+            <tr>
+                <td style="width:80%; border-style:hidden; text-align:left">
+                    <b>This gives you a high payoff of {{ group.groupreturnsuccess }} ECU.</b>
+                </td>
+                <td style="width:20%; border-style:hidden; text-align:left"></td>
+            </tr>
+            <tr>
+                <td style="width:80%; border-style:hidden; text-align:left">
+                    Now consider whether your prediction will be higher than, lower than, or the same as the one you stated in Question 1.
+                </td>
+                <td style="width:20%; border-style:hidden; text-align:left"></td>
+            </tr>
+            <tr>
+                <td style="width:80%; border-style:hidden; text-align:left">
+                    Specifically, given an outcome of high payoff, what is the chance out of 100 that your leader has chosen Investment X?
+                </td>
+                <td style="width:20%; border-style:hidden; text-align:left">
+                    {% formfield player.posteriorsuccess label="" %}
+                </td>
+            </tr>
+<!--            Posterior for Bad Outcome -->
+            <tr>
+                <td style="width:80%; border-style:hidden; text-align:left">
+                    <b>(b) Suppose you are informed that the investment chosen by your leader has failed.</b>
+                </td>
+                <td style="width:20%; border-style:hidden; text-align:left"></td>
+            </tr>
+            <tr>
+                <td style="width:80%; border-style:hidden; text-align:left">
+                    <b>This gives you a low payoff of {{ group.groupreturnfailure }} ECU.</b>
+                </td>
+                <td style="width:20%; border-style:hidden; text-align:left"></td>
+            </tr>
+            <tr>
+                <td style="width:80%; border-style:hidden; text-align:left">
+                    Now consider whether your prediction will be higher than, lower than, or the same as the one you stated in Question 1.
+                </td>
+                <td style="width:20%; border-style:hidden; text-align:left"></td>
+            </tr>
+            <tr>
+                <td style="width:80%; border-style:hidden; text-align:left">
+                    Specifically, given an outcome of low payoff, what is the chance out of 100 that your leader has chosen Investment X?
+                </td>
+                <td style="width:20%; border-style:hidden; text-align:left">
+                    {% formfield player.posteriorfailure label="" %}
+                </td>
+            </tr>
+        </table>
+    <br>
+    </left>
+
+    <center>
+        <button class="btn btn-primary">SUBMIT DECISIONS</button>
+    </center>
+
+</body>
+
+{% endblock %}

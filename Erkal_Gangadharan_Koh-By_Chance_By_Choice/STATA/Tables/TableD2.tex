@@ -1,0 +1,36 @@
+\documentclass[]{article}
+\setlength{\pdfpagewidth}{8.5in} \setlength{\pdfpageheight}{11in}
+\begin{document}
+\begin{tabular}{lcccc} \hline
+ & (1) & (2) & (3) & (4) \\
+VARIABLES & Dependent variable: Interim belief & Dependent variable: Interim belief & Dependent variable: Interim belief & Dependent variable: Interim belief \\ \hline
+ &  &  &  &  \\
+Param: Treatment LA = 1 & -13.074*** & -13.074*** & -11.989*** & -12.375*** \\
+ & (1.484) & (1.482) & (1.465) & (1.425) \\
+Param: Treatment HA = 1 & 9.787*** & 9.787*** & 8.702*** & 9.088*** \\
+ & (1.397) & (1.396) & (1.352) & (1.332) \\
+Param: Treatment GA = 1 & 2.717** & 2.717** & 1.813 & 2.135* \\
+ & (1.355) & (1.354) & (1.277) & (1.265) \\
+LG: =1 if chose high effort = 1 &  &  & 24.584*** & 15.832*** \\
+ &  &  & (1.960) & (1.984) \\
+RG: Amount invested as \% of endowment & -0.086* &  & -0.055 &  \\
+ & (0.045) &  & (0.039) &  \\
+Param: =1 if RA played before GA = 1 & -0.927 &  & 0.171 &  \\
+ & (2.584) &  & (2.257) &  \\
+Param: =1 if LA played before HA = 1 & -4.986* &  & -3.941* &  \\
+ & (2.591) &  & (2.285) &  \\
+Constant & 55.525*** & 45.938*** & 45.400*** & 41.572*** \\
+ & (3.990) & (0.812) & (3.636) & (0.890) \\
+ &  &  &  &  \\
+Observations & 1,088 & 1,088 & 1,088 & 1,088 \\
+R-squared & 0.111 & 0.233 & 0.278 & 0.306 \\
+Order effects & Y & N & Y & N \\
+Individual FE & N & Y & N & Y \\
+Test of HA=GA & 7.070 & 7.070 & 6.889 & 6.953 \\
+t-statistic & 5.202 & 5.209 & 5.341 & 5.461 \\
+p-value & 3.89e-07 & 3.76e-07 & 1.96e-07 & 1.07e-07 \\
+ Number of ID &  & 272 &  & 272 \\ \hline
+\multicolumn{5}{c}{ Robust standard errors in parentheses} \\
+\multicolumn{5}{c}{ *** p$<$0.01, ** p$<$0.05, * p$<$0.10} \\
+\end{tabular}
+\end{document}

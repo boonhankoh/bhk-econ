@@ -1,0 +1,499 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  TableD8
+       log:  C:\Users\BoonHan\Dropbox\University\Research\Projects\Beliefs-Effort_Luck\STATA\Paper-Final\Logs/TableD8.log
+  log type:  text
+ opened on:   5 Jul 2021, 17:00:54
+
+. use "Data/Exp1-cleaned-long-state.dta", clear
+
+. keep if b_Group3==1
+(804 observations deleted)
+
+. 
+. fmm 2, vce(cluster ID) iterate(100): regress LogitPosterior LogitUnconditional LogitStateGood LogitStateBad, nocons
+
+Fitting class model:
+
+Iteration 0:   (class) log likelihood = -1705.1421  
+Iteration 1:   (class) log likelihood = -1705.1421  
+
+Fitting outcome model:
+
+Iteration 0:   (outcome) log likelihood = -4702.5438  
+Iteration 1:   (outcome) log likelihood = -4702.5438  
+
+Refining starting values:
+
+Iteration 0:   (EM) log likelihood = -6141.4978
+Iteration 1:   (EM) log likelihood = -5930.2702
+Iteration 2:   (EM) log likelihood =  -5804.888
+Iteration 3:   (EM) log likelihood = -5480.1656
+Iteration 4:   (EM) log likelihood = -4708.3053
+Iteration 5:   (EM) log likelihood = -4189.4656
+Iteration 6:   (EM) log likelihood = -3971.5311
+Iteration 7:   (EM) log likelihood = -3885.9078
+Iteration 8:   (EM) log likelihood = -3843.9158
+Iteration 9:   (EM) log likelihood =  -3816.417
+Iteration 10:  (EM) log likelihood = -3795.0411
+Iteration 11:  (EM) log likelihood = -3777.3733
+Iteration 12:  (EM) log likelihood = -3762.5937
+Iteration 13:  (EM) log likelihood = -3750.2831
+Iteration 14:  (EM) log likelihood = -3740.1174
+Iteration 15:  (EM) log likelihood = -3731.7986
+Iteration 16:  (EM) log likelihood = -3725.0472
+Iteration 17:  (EM) log likelihood = -3719.6067
+Iteration 18:  (EM) log likelihood = -3715.2485
+Iteration 19:  (EM) log likelihood = -3711.7745
+Iteration 20:  (EM) log likelihood = -3709.0162
+Note: EM algorithm reached maximum iterations.
+
+Fitting full model:
+
+Iteration 0:   log pseudolikelihood = -3317.9034  
+Iteration 1:   log pseudolikelihood = -3317.8601  
+Iteration 2:   log pseudolikelihood = -3317.8601  
+
+Finite mixture model                            Number of obs     =      2,460
+Log pseudolikelihood = -3317.8601
+
+ ( 1)  [LogitPosterior]1bn.Class = 0
+ ( 2)  [LogitPosterior]2.Class = 0
+
+                                   (Std. Err. adjusted for 205 clusters in ID)
+------------------------------------------------------------------------------
+             |               Robust
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+1.Class      |  (base outcome)
+-------------+----------------------------------------------------------------
+2.Class      |
+       _cons |  -2.083387   .2051743   -10.15   0.000    -2.485521   -1.681252
+------------------------------------------------------------------------------
+
+Class          : 1
+Response       : LogitPosterior
+Model          : regress
+
+                                            (Std. Err. adjusted for 205 clusters in ID)
+---------------------------------------------------------------------------------------
+                      |               Robust
+                      |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+----------------------+----------------------------------------------------------------
+LogitPosterior        |
+   LogitUnconditional |   .9362031   .0107315    87.24   0.000     .9151696    .9572365
+       LogitStateGood |   .5349139   .0309202    17.30   0.000     .4743115    .5955163
+        LogitStateBad |   .6681126    .043512    15.35   0.000     .5828307    .7533945
+                _cons |          0  (omitted)
+----------------------+----------------------------------------------------------------
+ var(e.LogitPosterior)|   .4071979   .0356849                      .3429339    .4835048
+---------------------------------------------------------------------------------------
+
+Class          : 2
+Response       : LogitPosterior
+Model          : regress
+
+                                            (Std. Err. adjusted for 205 clusters in ID)
+---------------------------------------------------------------------------------------
+                      |               Robust
+                      |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+----------------------+----------------------------------------------------------------
+LogitPosterior        |
+   LogitUnconditional |   .1475762   .0860045     1.72   0.086    -.0209895    .3161419
+       LogitStateGood |   1.936168   .4050822     4.78   0.000     1.142221    2.730114
+        LogitStateBad |   1.944672   .4066831     4.78   0.000     1.147588    2.741756
+                _cons |          0  (omitted)
+----------------------+----------------------------------------------------------------
+ var(e.LogitPosterior)|   11.68814   2.588348                      7.572618    18.04033
+---------------------------------------------------------------------------------------
+
+. estat lcprob
+
+Latent class marginal probabilities             Number of obs     =      2,460
+
+--------------------------------------------------------------
+             |            Delta-method
+             |     Margin   Std. Err.     [95% Conf. Interval]
+-------------+------------------------------------------------
+       Class |
+          1  |   .8892779    .020202      .8430703    .9231205
+          2  |   .1107221    .020202      .0768795    .1569297
+--------------------------------------------------------------
+
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |          N   ll(null)  ll(model)      df        AIC        BIC
+-------------+---------------------------------------------------------------
+           . |      2,460          .   -3317.86       9    6653.72   6705.991
+-----------------------------------------------------------------------------
+Note: BIC uses N = number of observations. See [R] BIC note.
+
+. estimates store fmm2
+
+. 
+. lincom 1.Class#LogitUnconditional-1
+
+ ( 1)  [LogitPosterior]1bn.Class#c.LogitUnconditional = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0637969   .0107315    -5.94   0.000    -.0848304   -.0427635
+------------------------------------------------------------------------------
+
+. lincom 1.Class#LogitStateGood-1
+
+ ( 1)  [LogitPosterior]1bn.Class#c.LogitStateGood = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.4650861   .0309202   -15.04   0.000    -.5256885   -.4044837
+------------------------------------------------------------------------------
+
+. lincom 1.Class#LogitStateBad-1
+
+ ( 1)  [LogitPosterior]1bn.Class#c.LogitStateBad = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.3318874    .043512    -7.63   0.000    -.4171693   -.2466055
+------------------------------------------------------------------------------
+
+. lincom 1.Class#LogitStateGood-1.Class#LogitStateBad
+
+ ( 1)  [LogitPosterior]1bn.Class#c.LogitStateGood - [LogitPosterior]1bn.Class#c.LogitStateBad = 0
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.1331987   .0384386    -3.47   0.001    -.2085369   -.0578605
+------------------------------------------------------------------------------
+
+. 
+. lincom 2.Class#LogitUnconditional-1
+
+ ( 1)  [LogitPosterior]2.Class#c.LogitUnconditional = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.8524238   .0860045    -9.91   0.000     -1.02099   -.6838581
+------------------------------------------------------------------------------
+
+. lincom 2.Class#LogitStateGood-1
+
+ ( 1)  [LogitPosterior]2.Class#c.LogitStateGood = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .9361678   .4050822     2.31   0.021     .1422213    1.730114
+------------------------------------------------------------------------------
+
+. lincom 2.Class#LogitStateBad-1
+
+ ( 1)  [LogitPosterior]2.Class#c.LogitStateBad = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .9446721   .4066831     2.32   0.020     .1475879    1.741756
+------------------------------------------------------------------------------
+
+. lincom 2.Class#LogitStateGood-2.Class#LogitStateBad
+
+ ( 1)  [LogitPosterior]2.Class#c.LogitStateGood - [LogitPosterior]2.Class#c.LogitStateBad = 0
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0085043   .4127193    -0.02   0.984    -.8174193    .8004107
+------------------------------------------------------------------------------
+
+. 
+. outreg2 using "Tables/TableD8", label ctitle("Dependent variable: Logit(posterior)", "2-Component Model") bdec(3) sdec(3) replace tex excel noas
+Tables/TableD8.tex
+Tables/TableD8.xml
+dir : seeout
+
+. 
+. fmm 3, vce(cluster ID) iterate(100): regress LogitPosterior LogitUnconditional LogitStateGood LogitStateBad, nocons
+
+Fitting class model:
+
+Iteration 0:   (class) log likelihood = -2702.5862  
+Iteration 1:   (class) log likelihood = -2702.5862  
+
+Fitting outcome model:
+
+Iteration 0:   (outcome) log likelihood = -4220.2951  
+Iteration 1:   (outcome) log likelihood = -4220.2951  
+
+Refining starting values:
+
+Iteration 0:   (EM) log likelihood = -6862.1065
+Iteration 1:   (EM) log likelihood = -6626.8156
+Iteration 2:   (EM) log likelihood = -6207.2432
+Iteration 3:   (EM) log likelihood = -5850.1555
+Iteration 4:   (EM) log likelihood = -5427.5298
+Iteration 5:   (EM) log likelihood = -4831.3113
+Iteration 6:   (EM) log likelihood = -4513.5036
+Iteration 7:   (EM) log likelihood = -4329.8873
+Iteration 8:   (EM) log likelihood = -4231.1275
+Iteration 9:   (EM) log likelihood = -4180.5559
+Iteration 10:  (EM) log likelihood = -4154.0552
+Iteration 11:  (EM) log likelihood = -4139.2428
+Iteration 12:  (EM) log likelihood = -4130.2605
+Iteration 13:  (EM) log likelihood = -4124.3567
+Iteration 14:  (EM) log likelihood = -4120.1998
+Iteration 15:  (EM) log likelihood = -4117.1129
+Iteration 16:  (EM) log likelihood = -4114.7305
+Iteration 17:  (EM) log likelihood = -4112.8421
+Iteration 18:  (EM) log likelihood =  -4111.318
+Iteration 19:  (EM) log likelihood = -4110.0729
+Iteration 20:  (EM) log likelihood = -4109.0474
+Note: EM algorithm reached maximum iterations.
+
+Fitting full model:
+
+Iteration 0:   log pseudolikelihood = -3028.1331  
+Iteration 1:   log pseudolikelihood = -3028.1114  
+Iteration 2:   log pseudolikelihood = -3028.1114  
+
+Finite mixture model                            Number of obs     =      2,460
+Log pseudolikelihood = -3028.1114
+
+ ( 1)  [LogitPosterior]1bn.Class = 0
+ ( 2)  [LogitPosterior]2.Class = 0
+ ( 3)  [LogitPosterior]3.Class = 0
+
+                                   (Std. Err. adjusted for 205 clusters in ID)
+------------------------------------------------------------------------------
+             |               Robust
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+1.Class      |  (base outcome)
+-------------+----------------------------------------------------------------
+2.Class      |
+       _cons |  -2.622917   .2022826   -12.97   0.000    -3.019384    -2.22645
+-------------+----------------------------------------------------------------
+3.Class      |
+       _cons |  -.8082134   .1338273    -6.04   0.000     -1.07051   -.5459168
+------------------------------------------------------------------------------
+
+Class          : 1
+Response       : LogitPosterior
+Model          : regress
+
+                                            (Std. Err. adjusted for 205 clusters in ID)
+---------------------------------------------------------------------------------------
+                      |               Robust
+                      |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+----------------------+----------------------------------------------------------------
+LogitPosterior        |
+   LogitUnconditional |   .9719323   .0051938   187.13   0.000     .9617526    .9821119
+       LogitStateGood |   .4307212   .0306987    14.03   0.000     .3705529    .4908896
+        LogitStateBad |   .4773589   .0403076    11.84   0.000     .3983574    .5563604
+                _cons |          0  (omitted)
+----------------------+----------------------------------------------------------------
+ var(e.LogitPosterior)|   .2464789    .019852                      .2104854    .2886275
+---------------------------------------------------------------------------------------
+
+Class          : 2
+Response       : LogitPosterior
+Model          : regress
+
+                                            (Std. Err. adjusted for 205 clusters in ID)
+---------------------------------------------------------------------------------------
+                      |               Robust
+                      |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+----------------------+----------------------------------------------------------------
+LogitPosterior        |
+   LogitUnconditional |  -.1091374   .1374543    -0.79   0.427    -.3785428    .1602681
+       LogitStateGood |   3.566446   .8068141     4.42   0.000     1.985119    5.147772
+        LogitStateBad |   2.942455   .6423797     4.58   0.000     1.683414    4.201496
+                _cons |          0  (omitted)
+----------------------+----------------------------------------------------------------
+ var(e.LogitPosterior)|   20.51503   2.284377                      16.49262    25.51847
+---------------------------------------------------------------------------------------
+
+Class          : 3
+Response       : LogitPosterior
+Model          : regress
+
+                                            (Std. Err. adjusted for 205 clusters in ID)
+---------------------------------------------------------------------------------------
+                      |               Robust
+                      |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+----------------------+----------------------------------------------------------------
+LogitPosterior        |
+   LogitUnconditional |   .3019155    .030761     9.81   0.000      .241625     .362206
+       LogitStateGood |   1.028964   .0540599    19.03   0.000     .9230083    1.134919
+        LogitStateBad |   1.102581   .0674839    16.34   0.000     .9703147    1.234847
+                _cons |          0  (omitted)
+----------------------+----------------------------------------------------------------
+ var(e.LogitPosterior)|   .3802781   .0618082                      .2765361    .5229386
+---------------------------------------------------------------------------------------
+
+. estat lcprob
+
+Latent class marginal probabilities             Number of obs     =      2,460
+
+--------------------------------------------------------------
+             |            Delta-method
+             |     Margin   Std. Err.     [95% Conf. Interval]
+-------------+------------------------------------------------
+       Class |
+          1  |   .6586555   .0280565      .6017406    .7113385
+          2  |   .0478123   .0089578      .0330182    .0687638
+          3  |   .2935322   .0272278      .2431229    .3495661
+--------------------------------------------------------------
+
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |          N   ll(null)  ll(model)      df        AIC        BIC
+-------------+---------------------------------------------------------------
+           . |      2,460          .  -3028.111      14   6084.223   6165.534
+-----------------------------------------------------------------------------
+Note: BIC uses N = number of observations. See [R] BIC note.
+
+. estimates store fmm3
+
+. 
+. lincom 1.Class#LogitUnconditional-1
+
+ ( 1)  [LogitPosterior]1bn.Class#c.LogitUnconditional = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0280677   .0051938    -5.40   0.000    -.0382474   -.0178881
+------------------------------------------------------------------------------
+
+. lincom 1.Class#LogitStateGood-1
+
+ ( 1)  [LogitPosterior]1bn.Class#c.LogitStateGood = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.5692788   .0306987   -18.54   0.000    -.6294471   -.5091104
+------------------------------------------------------------------------------
+
+. lincom 1.Class#LogitStateBad-1
+
+ ( 1)  [LogitPosterior]1bn.Class#c.LogitStateBad = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.5226411   .0403076   -12.97   0.000    -.6016426   -.4436396
+------------------------------------------------------------------------------
+
+. lincom 1.Class#LogitStateGood-1.Class#LogitStateBad
+
+ ( 1)  [LogitPosterior]1bn.Class#c.LogitStateGood - [LogitPosterior]1bn.Class#c.LogitStateBad = 0
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0466377   .0355538    -1.31   0.190    -.1163218    .0230464
+------------------------------------------------------------------------------
+
+. 
+. lincom 2.Class#LogitUnconditional-1
+
+ ( 1)  [LogitPosterior]2.Class#c.LogitUnconditional = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -1.109137   .1374543    -8.07   0.000    -1.378543   -.8397319
+------------------------------------------------------------------------------
+
+. lincom 2.Class#LogitStateGood-1
+
+ ( 1)  [LogitPosterior]2.Class#c.LogitStateGood = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   2.566446   .8068141     3.18   0.001      .985119    4.147772
+------------------------------------------------------------------------------
+
+. lincom 2.Class#LogitStateBad-1
+
+ ( 1)  [LogitPosterior]2.Class#c.LogitStateBad = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   1.942455   .6423797     3.02   0.002      .683414    3.201496
+------------------------------------------------------------------------------
+
+. lincom 2.Class#LogitStateGood-2.Class#LogitStateBad
+
+ ( 1)  [LogitPosterior]2.Class#c.LogitStateGood - [LogitPosterior]2.Class#c.LogitStateBad = 0
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .6239905    .892633     0.70   0.485    -1.125538    2.373519
+------------------------------------------------------------------------------
+
+. 
+. lincom 3.Class#LogitUnconditional-1
+
+ ( 1)  [LogitPosterior]3.Class#c.LogitUnconditional = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.6980845    .030761   -22.69   0.000     -.758375    -.637794
+------------------------------------------------------------------------------
+
+. lincom 3.Class#LogitStateGood-1
+
+ ( 1)  [LogitPosterior]3.Class#c.LogitStateGood = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .0289638   .0540599     0.54   0.592    -.0769917    .1349193
+------------------------------------------------------------------------------
+
+. lincom 3.Class#LogitStateBad-1
+
+ ( 1)  [LogitPosterior]3.Class#c.LogitStateBad = 1
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .1025808   .0674839     1.52   0.128    -.0296853    .2348469
+------------------------------------------------------------------------------
+
+. lincom 3.Class#LogitStateGood-3.Class#LogitStateBad
+
+ ( 1)  [LogitPosterior]3.Class#c.LogitStateGood - [LogitPosterior]3.Class#c.LogitStateBad = 0
+
+------------------------------------------------------------------------------
+             |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0736169   .0825171    -0.89   0.372    -.2353475    .0881136
+------------------------------------------------------------------------------
+
+. 
+. outreg2 using "Tables/TableD8", label ctitle("Dependent variable: Logit(posterior)", "3-Component Model") bdec(3) sdec(3) append tex excel noas
+Tables/TableD8.tex
+Tables/TableD8.xml
+dir : seeout
+
+. 
+. capture log close _all

@@ -1,0 +1,35 @@
+{% load otree static %}
+
+<head>
+    <style>
+    table {
+        border: 2px solid black;
+    }
+
+    th, td {
+        padding: 10px;
+        height: 40px;
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+
+    You chose <b><u>Investment Y</u></b>.
+    <br>
+    <br>
+    {% if player.treatstrategy %}If you are the leader of your group, then:{% else %}Hence:{% endif %}
+    <br><br>
+    <ol type="i">
+        <li>you will receive an endowment of {{ Constants.endowment }} ECU.</li>
+        <li>this investment will cost you {{ Constants.costeffortlow }} ECU.</li>
+        <li>this investment will succeed with a chance of <script>document.write({{ Constants.prsuccessefflow }}*100)</script>%,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;in which case your final payoff will be <script>document.write({{ Constants.endowment }} - {{ Constants.costeffortlow }} + {{ group.groupreturnsuccess }})</script> ECU, and your members will each receive {{ group.groupreturnsuccess }} ECU.
+        </li>
+        <li>this investment will fail with a chance of <script>document.write((1 - {{ Constants.prsuccessefflow }})*100)</script>%,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;in which case your final payoff will be <script>document.write({{ Constants.endowment }} - {{ Constants.costeffortlow }} + {{ group.groupreturnfailure }})</script> ECU, and your members will each receive {{ group.groupreturnfailure }} ECU.
+        </li>
+    </ol>
+
+</body>

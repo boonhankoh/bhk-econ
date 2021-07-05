@@ -1,0 +1,68 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  TableD1
+       log:  C:\Users\BoonHan\Dropbox\University\Research\Projects\Beliefs-Effort_Luck\STATA\Paper-Final\Logs/TableD1.log
+  log type:  text
+ opened on:   5 Jul 2021, 17:00:39
+
+. use "Data/Exp1-cleaned-long.dta", clear
+
+. keep if LGGame==1
+(544 observations deleted)
+
+. 
+. probit LGHighEff DGGivePerc RGInvestPerc i.LA i.HA i.GA i.OrderRAGA i.OrderLAHA, vce(cluster ID)
+
+Iteration 0:   log pseudolikelihood = -650.13026  
+Iteration 1:   log pseudolikelihood = -620.62185  
+Iteration 2:   log pseudolikelihood = -620.41853  
+Iteration 3:   log pseudolikelihood =  -620.4185  
+
+Probit regression                               Number of obs     =      1,088
+                                                Wald chi2(7)      =      35.55
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -620.4185               Pseudo R2         =     0.0457
+
+                                   (Std. Err. adjusted for 272 clusters in ID)
+------------------------------------------------------------------------------
+             |               Robust
+   LGHighEff |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  DGGivePerc |   .0133732   .0032407     4.13   0.000     .0070215    .0197249
+RGInvestPerc |  -.0019477   .0023651    -0.82   0.410    -.0065832    .0026877
+        1.LA |  -.1419684   .0913315    -1.55   0.120    -.3209749    .0370381
+        1.HA |   .1471636   .0883575     1.67   0.096    -.0260139    .3203412
+        1.GA |   .1191472   .0844691     1.41   0.158    -.0464091    .2847036
+ 1.OrderRAGA |  -.1658975   .1280434    -1.30   0.195     -.416858    .0850629
+ 1.OrderLAHA |   -.183323   .1284035    -1.43   0.153    -.4349892    .0683432
+       _cons |  -.7536488   .2629185    -2.87   0.004     -1.26896    -.238338
+------------------------------------------------------------------------------
+
+. margins, dydx(*) post
+
+Average marginal effects                        Number of obs     =      1,088
+Model VCE    : Robust
+
+Expression   : Pr(LGHighEff), predict()
+dy/dx w.r.t. : DGGivePerc RGInvestPerc 1.LA 1.HA 1.GA 1.OrderRAGA 1.OrderLAHA
+
+------------------------------------------------------------------------------
+             |            Delta-method
+             |      dy/dx   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  DGGivePerc |    .004313   .0010142     4.25   0.000     .0023253    .0063007
+RGInvestPerc |  -.0006282   .0007619    -0.82   0.410    -.0021214    .0008651
+        1.LA |  -.0449767   .0284355    -1.58   0.114    -.1007093    .0107558
+        1.HA |   .0484175   .0296453     1.63   0.102    -.0096862    .1065213
+        1.GA |   .0390428    .028141     1.39   0.165    -.0161125    .0941981
+ 1.OrderRAGA |  -.0531124   .0406735    -1.31   0.192     -.132831    .0266062
+ 1.OrderLAHA |  -.0596312    .041983    -1.42   0.156    -.1419164     .022654
+------------------------------------------------------------------------------
+Note: dy/dx for factor levels is the discrete change from the base level.
+
+. outreg2 using "Tables/TableD1", label alpha(0.01, 0.05, 0.10) ctitle("Dependent variable:", "=1 if DM chooses e_H") bdec(3) sdec(3) replace tex excel
+Tables/TableD1.tex
+Tables/TableD1.xml
+dir : seeout
+
+. 
+. capture log close _all

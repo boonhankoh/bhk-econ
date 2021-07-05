@@ -1,0 +1,47 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block head_title %}
+Questionnaire
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+{% block styles %}
+<style>
+  .otree-form-errors {
+    visibility: hidden;
+    display: none;
+}
+.otree-timer {
+  display: none;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="card-header bg-transparent mainheader" >
+    <h4>
+        <center>
+            Questionnaire Part {{ participant.vars.survey_part }}
+        </center>
+    </h4>
+</div>
+<br>
+
+<p>
+    In Task 1,
+    {% if session.config.treatstrategy == 1 %}you were asked to make investment decisions in Stage 1 assuming that you are the leader of your group.
+    {% else %}you were asked to make investment decisions as the leader of your group.
+    {% endif %}
+</p>
+
+{% formfields %}
+
+<div align="right">
+    <button class="btn-primary btn next">CONTINUE</button>
+</div>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block head_title %}
+Questionnaire
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+{% block styles %}
+<style>
+  .otree-form-errors {
+    visibility: hidden;
+    display: none;
+}
+.otree-timer {
+  display: none;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<head>
+    <style>
+    table {
+        border: 2px solid black;
+    }
+
+    th, td {
+        padding: 10px;
+        height: 40px;
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div class="card-header bg-transparent mainheader" >
+        <h4>
+            <center>
+                PayID Information
+            </center>
+        </h4>
+    </div>
+    {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+        <center>The email address or phone number in both fields do not match.</center>
+    </div>
+    {% endif %}
+    <br>
+
+    {% formfields %}
+
+    <br>
+    Please click the 'CONTINUE' button to view your payment summary.<br>You may need to wait for the other participants to finish before you can see the next page.
+
+    <div align="right">
+        <button class="btn-primary btn next">CONTINUE</button>
+    </div>
+
+</body>
+
+{% endblock %}
