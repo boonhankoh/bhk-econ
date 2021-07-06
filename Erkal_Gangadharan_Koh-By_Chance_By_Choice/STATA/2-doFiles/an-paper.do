@@ -352,6 +352,7 @@ graph bar if `x'==1, over(LGHighEff) over(DGCat, gap(10) label(labsize(medlarge)
 	bar(1, fcolor(gs8) lcolor(gs8)) bar(2, fcolor(gs0) lcolor(gs0)) ///
 	graphregion(color(white)) bgcolor(white)
 graph export "Graphs/Figure3-`x'.png", replace
+graph export "Graphs/Figure3-`x'.eps", replace
 window manage close graph _all
 }
 
@@ -364,6 +365,7 @@ graph bar, over(LGNomDG, relabel(1 "Lowest DG Giver" 2 "Highest DG Giver" 3 "Ind
 	bar(1, fcolor(gs6) lcolor(gs12)) ///
 	graphregion(color(white)) bgcolor(white)
 graph export "Graphs/Figure4a.png", replace
+graph export "Graphs/Figure4a.eps", replace
 window manage close graph _all
 * 4(b)
 use "Data/Exp1-cleaned.dta", clear
@@ -383,6 +385,7 @@ graph bar, over(BeliefNomination, relabel(1 "Lowest DG Giver" 2 "Highest DG Give
 	bar(1, fcolor(gs6) lcolor(gs12)) ///
 	graphregion(color(white)) bgcolor(white)
 graph export "Graphs/Figure4b.png", replace
+graph export "Graphs/Figure4b.eps", replace
 window manage close graph _all
 restore
 
@@ -400,6 +403,7 @@ twoway (histogram BeliefUnconditional if `x'==1, ///
 	xline(`MUnconditional', lcolor(black) lpattern(dash)) ///
 	graphregion(color(white)) bgcolor(white)
 graph export "Graphs/Figure5-`x'.png", replace
+graph export "Graphs/Figure5-`x'.eps", replace
 window manage close graph _all
 }
 
@@ -1048,6 +1052,7 @@ twoway histogram BeliefIncTotal if Treatment==1 & StateSuccess==1, discrete widt
 	xtitle("# updates in wrong direction", size(medlarge)) ytitle("% subjects", size(medlarge)) ///
 	graphregion(color(white)) bgcolor(white) fcolor(gs6) lcolor(gs12)
 graph export "Graphs/FigureD1a.png", replace
+graph export "Graphs/FigureD1a.eps", replace
 * D.1(b)
 twoway histogram BeliefNoneTotal if Treatment==1 & StateSuccess==1, discrete width(1) start(0) percent ///
 	yscale(range(0 60)) ylabel(0(20)60, labsize(medlarge) angle(horizontal)) ///
@@ -1055,4 +1060,5 @@ twoway histogram BeliefNoneTotal if Treatment==1 & StateSuccess==1, discrete wid
 	xtitle("# non-updates", size(medlarge)) ytitle("% subjects", size(medlarge)) ///
 	graphregion(color(white)) bgcolor(white) fcolor(gs6) lcolor(gs12)
 graph export "Graphs/FigureD1b.png", replace
+graph export "Graphs/FigureD1b.eps", replace
 window manage close graph _all

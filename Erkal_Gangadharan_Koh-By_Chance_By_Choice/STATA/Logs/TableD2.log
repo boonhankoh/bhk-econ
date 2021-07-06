@@ -2,7 +2,7 @@
       name:  TableD2
        log:  C:\Users\BoonHan\Dropbox\University\Research\Projects\Beliefs-Effort_Luck\STATA\Paper-Final\Logs/TableD2.log
   log type:  text
- opened on:   5 Jul 2021, 17:00:40
+ opened on:   6 Jul 2021, 09:31:38
 
 . use "Data/Exp1-cleaned-long.dta", clear
 

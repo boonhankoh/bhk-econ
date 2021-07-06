@@ -2,7 +2,7 @@
       name:  Table5
        log:  C:\Users\BoonHan\Dropbox\University\Research\Projects\Beliefs-Effort_Luck\STATA\Paper-Final\Logs/Table5.log
   log type:  text
- opened on:   5 Jul 2021, 17:00:16
+ opened on:   6 Jul 2021, 09:30:50
 
 . use "Data/Exp1-cleaned-long-state.dta", clear
 

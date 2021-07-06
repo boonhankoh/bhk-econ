@@ -2,7 +2,7 @@
       name:  TableD9
        log:  C:\Users\BoonHan\Dropbox\University\Research\Projects\Beliefs-Effort_Luck\STATA\Paper-Final\Logs/TableD9.log
   log type:  text
- opened on:   5 Jul 2021, 17:01:17
+ opened on:   6 Jul 2021, 09:32:20
 
 . use "Data/Exp2-cleaned.dta", clear
 
@@ -111,12 +111,10 @@ category labels saved in macro e(labels)
 
 . esttab using "Tables/TableD9", main(mean %8.3f) aux(sd %8.3f) obslast label lines nostar unstack nonote nomtitle nonumber rtf ///
 >         title("Subjects' characteristics in Experiment 1 and Experiment 2") brackets replace
-(note: file Tables/TableD9.rtf not found)
 (output written to Tables/TableD9.rtf)
 
 . esttab using "Tables/TableD9", main(mean %8.3f) aux(sd %8.3f) obslast label lines nostar unstack nonote nomtitle nonumber tex ///
 >         title("Subjects' characteristics in Experiment 1 and Experiment 2") brackets replace
-(note: file Tables/TableD9.tex not found)
 (output written to Tables/TableD9.tex)
 
 . 

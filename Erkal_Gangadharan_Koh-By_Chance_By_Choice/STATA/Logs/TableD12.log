@@ -2,7 +2,7 @@
       name:  TableD12
        log:  C:\Users\BoonHan\Dropbox\University\Research\Projects\Beliefs-Effort_Luck\STATA\Paper-Final\Logs/TableD12.log
   log type:  text
- opened on:   5 Jul 2021, 17:01:21
+ opened on:   6 Jul 2021, 09:32:27
 
 . use "Data/Exp2-cleaned-long-state.dta", clear
 
