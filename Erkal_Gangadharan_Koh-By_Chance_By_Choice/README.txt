@@ -13,9 +13,9 @@ For Experiment 2, the program was run on otree version 3.0.5.
 
 Within this folder, the "1-RawData" folder contains the essential raw datafiles obtained from the z-Tree and otree session files (see #2).
 
-The "an-paper.do" file in the "2-doFiles" folder contains all the STATA codes required to reproduce all figures, tables, and statistical tests reported in the paper and the Online Appendix.
+The "an-paper.do" file in the "2-doFiles" folder contains all the STATA codes required to reproduce all figures, tables, and statistical tests reported in the paper and the Online Appendix. Note: Before running the code, please change the directory such that STATA is the root folder.
 
-The "Data" folder contains the processed datasets (in .dta format) made suitable for analysis. "an-paper.do" calls datasets from this folder.
+The "Data" folder contains the processed datasets (in .dta format) made suitable for analysis. "an-paper.do" calls datasets from this folder. Note:
 - "Exp-X-cleaned.dta" provides a "wide" format of the dataset. Each row corresponds to an individual participant.
 - "Exp-X-cleaned-long.dta" provides a round-level dataset. Each row corresponds to decisions in an individual round by an individual participant.
 - "Exp-X-cleaned-long-state.dta" provides a state-level dataset. Each row corresponds to decisions conditional on an individual outcome (good vs. bad), within an individual round, by an individual participant.
