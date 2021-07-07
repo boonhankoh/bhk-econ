@@ -18,7 +18,7 @@ The "an-paper.do" file in the "2-doFiles" folder contains all the STATA codes re
 The "Data" folder contains the processed datasets (in .dta format) made suitable for analysis. "an-paper.do" calls datasets from this folder.
 - "Exp-X-cleaned.dta" provides a "wide" format of the dataset. Each row corresponds to an individual participant.
 - "Exp-X-cleaned-long.dta" provides a round-level dataset. Each row corresponds to decisions in an individual round by an individual participant.
-- "Exp-X-cleaned-long-state.dta" provides a state-level dataset. Each row corresponds to decisions by individuals outcomes, within an individual round, by an individual participant.
+- "Exp-X-cleaned-long-state.dta" provides a state-level dataset. Each row corresponds to decisions conditional on an individual outcome (good vs. bad), within an individual round, by an individual participant.
 
 Note that all variables in the processed STATA datasets are labelled in a way that are self-explanatory. Use the STATA function "desc" to see all variable labels.
 
