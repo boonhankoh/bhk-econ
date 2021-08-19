@@ -1,2 +1,0 @@
-otree==3.0.5
-otreeutils>=0.9.2
